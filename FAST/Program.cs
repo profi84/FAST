@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,7 +18,14 @@ namespace FAST
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Form1 mainView = new Form1();
+            //DBConnector dBconnector = new DBConnector();
+            //Model model = new Model();
+
+            Presenter presenter = new Presenter(mainView);
+
+            Application.Run(mainView);
         }
     }
 }
