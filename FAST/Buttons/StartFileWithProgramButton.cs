@@ -8,39 +8,14 @@ namespace FAST.Buttons
 {
     public class StartFileWithProgramButton : BasicButton
     {
-		private string pathOfFile;
-		public string PathOfFile
-        {
-			get { return pathOfFile; }
-			set { pathOfFile = value; }
-		}
+        public string PathOfFile { get; set; }
 
-		private bool ifNotDefaultProgram;
-		public bool IfNotDefaultProgram
-        {
-			get { return ifNotDefaultProgram; }
-			set { ifNotDefaultProgram = value; }
-		}
+        public bool IfNotDefaultProgram { get; set; }
 
-		private string pathProgramIfNotDefault;
-		public string PathProgramIfNotDefault
-        {
-			get { return pathProgramIfNotDefault; }
-			set { pathProgramIfNotDefault = value; }
-		}
+        public string PathProgramIfNotDefault { get; set; }
 
-		private bool ifNoFileChoosed;
-		public bool IfNoFileChoosed
-        {
-			get { return ifNoFileChoosed; }
-			set { ifNoFileChoosed = value; }
-		}
+        public bool IfNoFileChoosed { get; set; }
 
-		private string pathOfFolderIfNoFileChoosed;
-		public string PathOfFolderIfNoFileChoosed
-        {
-			get { return pathOfFolderIfNoFileChoosed; }
-			set { pathOfFolderIfNoFileChoosed = value; }
-		}
-	}
+        public string PathOfFolderIfNoFileChoosed { get; set; }
+    }
 }

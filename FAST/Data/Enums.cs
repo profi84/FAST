@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FAST.Buttons
+namespace FAST.Data
 {
-    public class StartExplorerButton : BasicButton
+    public class Enums
     {
-        public string PathFolder { get; set; }
+        
     }
 }

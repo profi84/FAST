@@ -8,39 +8,12 @@ namespace FAST.Buttons
 {
     public class BasicButton
     {
-		private string title;
-		public string Title
-		{
-			get { return title; }
-			set { title = value; }
-		}
+        public string Title { get; set; }
 
-		private string description;
-		public string Description
-		{
-			get { return description; }
-			set { description = value; }
-		}
+        public string Description { get; set; }
 
-		private string tabName;
-		public string TabName
-		{
-			get { return tabName; }
-			set { tabName = value; }
-		}
+        public string TabName { get; set; }
 
-		private string buttonType;
-		public string ButtonType
-		{
-			get { return buttonType; }
-			set { buttonType = value; }
-		}
-
-		private string indexOfPlace;
-		public string IndexOfPlace
-        {
-			get { return indexOfPlace; }
-			set { indexOfPlace = value; }
-		}
+        public string ButtonType { get; set; }        	
 	}
 }

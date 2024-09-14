@@ -1,5 +1,6 @@
 ﻿using FAST.Buttons;
 using FAST.DB_Connecting;
+using FAST.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace FAST
             this.mainView = mainView;
         }
 
-        private IViewMainForm mainView;
+        private IViewMainForm mainView;        
     }
 }

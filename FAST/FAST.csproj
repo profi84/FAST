@@ -53,6 +53,8 @@
     <Compile Include="Buttons\StartExplorerButton.cs" />
     <Compile Include="Buttons\StartFileWithProgramButton.cs" />
     <Compile Include="Buttons\StartWebsiteButton.cs" />
+    <Compile Include="Data\Dictionarys.cs" />
+    <Compile Include="Data\Enums.cs" />
     <Compile Include="DB_Connecting\ReadDB.cs" />
     <Compile Include="DB_Connecting\WriteDB.cs" />
     <Compile Include="Form1.cs">
@@ -92,6 +94,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Extensions\" />
     <Folder Include="Forms\" />
     <Folder Include="Models\" />
     <Folder Include="Settings\" />
