@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 438);
             this.Name = "Form1";
-            this.Text = "FAST";
+            this.Text = "FAST - Fast All Start Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
