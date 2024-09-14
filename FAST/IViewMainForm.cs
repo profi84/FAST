@@ -8,6 +8,7 @@ namespace FAST
 {
     public interface IViewMainForm
     {
-
+        event EventHandler CancelTokenSource;
+        void SetMaxSizeOfWindow();
     }
 }
