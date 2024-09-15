@@ -10,10 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace FAST.Forms
 {
-    public partial class CreateNewTabForm : Form, IViewCreateNewTabForm
+    public partial class CreateNewTabForm : Form
     {
         public CreateNewTabForm()
         {
@@ -22,13 +23,12 @@ namespace FAST.Forms
 
         private void CreateNewTabForm_Load(object sender, EventArgs e)
         {
-            ButtonOK.Click += new EventHandler(ButtonOK_Click);
-            ButtonCancel.Click += new EventHandler(ButtonCancel_Click);
+            
         }
 
         public event EventHandler CreateNewTabFormOK;
         public event EventHandler CreateNewTabFormCancel;
-
+        
         #region // Public methods
 
         public void ClearTextBox()

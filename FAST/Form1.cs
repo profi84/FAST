@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace FAST
 {
-    public partial class Form1 : Form, IViewMainForm
+    public partial class Form1 : Form
     {
         public Form1()
         {
@@ -41,6 +41,7 @@ namespace FAST
         #region // Variables
 
         public event EventHandler CancelTokenSource;
+        public event EventHandler CreateNewTab;
 
         private bool ifNotCloseForm = true;
         private bool showTrayMessage = true;
@@ -51,7 +52,7 @@ namespace FAST
 
         public void SetMaxSizeOfWindow()
         {
-            Invoke((Action)(() => { MaximizeWindow(); }));
+            MaximizeWindow();
         }
 
         #endregion
@@ -99,5 +100,9 @@ namespace FAST
             if (CancelTokenSource != null) CancelTokenSource(this, EventArgs.Empty);
         }
 
+        private void ButtonCreateNewTab_Click(object sender, EventArgs e)
+        {
+            if (CreateNewTab != null) CreateNewTab(this, EventArgs.Empty);
+        }
     }
 }

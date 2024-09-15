@@ -33,6 +33,7 @@
             this.NotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuMainView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ButtonCreateNewTab = new System.Windows.Forms.Button();
             this.contextMenuMainView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,16 +59,27 @@
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
+            // ButtonCreateNewTab
+            // 
+            this.ButtonCreateNewTab.Location = new System.Drawing.Point(12, 26);
+            this.ButtonCreateNewTab.Name = "ButtonCreateNewTab";
+            this.ButtonCreateNewTab.Size = new System.Drawing.Size(132, 46);
+            this.ButtonCreateNewTab.TabIndex = 1;
+            this.ButtonCreateNewTab.Text = "Reiter erstellen";
+            this.ButtonCreateNewTab.UseVisualStyleBackColor = true;
+            this.ButtonCreateNewTab.Click += new System.EventHandler(this.ButtonCreateNewTab_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 438);
+            this.Controls.Add(this.ButtonCreateNewTab);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
-            this.Text = "FAST - Fast All Start Tool";
+            this.Text = "FAST - Fast All Start Tool. Maximieren durch \"STRG\" + \"0\"";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuMainView.ResumeLayout(false);
@@ -80,6 +92,7 @@
         private System.Windows.Forms.NotifyIcon NotifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuMainView;
         private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
+        private System.Windows.Forms.Button ButtonCreateNewTab;
     }
 }
 

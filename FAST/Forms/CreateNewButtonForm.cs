@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace FAST.Forms
 {
-    public partial class CreateNewButtonForm : Form, IViewCreateNewButtonForm
+    public partial class CreateNewButtonForm : Form
     {
         public CreateNewButtonForm()
         {
@@ -22,8 +22,7 @@ namespace FAST.Forms
 
         private void CreateNewButtonForm_Load(object sender, EventArgs e)
         {
-            ButtonOK.Click += new EventHandler(ButtonOK_Click);
-            ButtonCancel.Click += new EventHandler(ButtonCancel_Click);
+            
         }
 
         public event EventHandler CreateNewButtonFormOK;

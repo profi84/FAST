@@ -15,7 +15,7 @@ namespace FAST.Data
            The order of names is not important. What is important is to enter all types of buttons.
            Only all inheritance classes and not the "BasicButton" class */
 
-        public static Dictionary<int, string> KindOfButtonsDict = new Dictionary<int, string>()
+        public static Dictionary<int, string> KindOfButtonsMain = new Dictionary<int, string>()
         {
             [0] = "StartExplorerButton",
             [1] = "StartFileWithProgramButton",

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FAST
+namespace FAST.Settings
 {
-    public interface IViewMainForm
+    public class SettingsValuesDynamic
     {
-        event EventHandler CancelTokenSource;
-        void SetMaxSizeOfWindow();
+
     }
 }
