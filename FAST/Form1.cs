@@ -1,6 +1,8 @@
 ﻿using FAST.Buttons;
 using FAST.Data;
 using FAST.Forms;
+using FAST.MessageBoxes;
+using FAST.ParamsEventArgs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,8 +64,7 @@ namespace FAST
         #endregion
 
         #region // Public methods
-
-
+                
 
         #endregion
 
@@ -101,6 +102,7 @@ namespace FAST
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ifNotCloseForm = false;
+            if (CancelTokenSource != null) CancelTokenSource(this, EventArgs.Empty);
             this.Close();
         }
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)

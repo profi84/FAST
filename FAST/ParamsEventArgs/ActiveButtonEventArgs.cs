@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FAST
+namespace FAST.ParamsEventArgs
 {
     public class ActiveButtonEventArgs : EventArgs
     {
