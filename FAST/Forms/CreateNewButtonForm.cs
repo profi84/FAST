@@ -15,7 +15,7 @@ namespace FAST.Forms
 {
     public partial class CreateNewButtonForm : Form
     {
-        public CreateNewButtonForm()
+        public CreateNewButtonForm(List<string> listOfTabs)
         {
             InitializeComponent();
         }

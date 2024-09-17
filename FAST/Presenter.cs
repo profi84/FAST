@@ -19,11 +19,9 @@ namespace FAST
         public Presenter(Form1 mainView)
         {
             this.mainView = mainView;
-
-            mainView.CancelTokenSource += new EventHandler(CancelAnoderTaskTokenSource);
+                        
             mainView.CreateNewTab += new EventHandler(CreateNewTab_EventMainView);
-            
-            CheckKeyCombination();
+            mainView.buttonClick += new EventHandler<ActiveButtonEventArgs>(BasicButtonsMainView_Click);
         }
 
         #region // Variables        
@@ -49,6 +47,11 @@ namespace FAST
             createNewTabForm.ShowDialog();
         }
 
+        private void BasicButtonsMainView_Click(object sender, ActiveButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void CreateNewTabForm_OK(object sender, EventArgs e)
         {
             string valueTab = createNewTabForm.GetTabName();
@@ -71,57 +74,6 @@ namespace FAST
         }
 
         #endregion
-
-
-        #region // Private methods
-
-
-
-        #endregion
-
-        #region // Async Task for checking of key state
-
-        [DllImport("User32.dll")]
-        private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);
-        static CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-        CancellationToken ct = cancelTokenSource.Token;
-
-        private async void CheckKeyCombination()
-        {
-            await Task.Run(async () =>
-            {
-                int stateKeyControl;
-                int stateKeyNumPad0;
-                int stateKeyD0;
-
-                Keys keyToCheckControl = Keys.ControlKey;
-                Keys keyToCheckNum = Keys.NumPad0;
-                Keys keyToCheckNumTop = Keys.D0;
-
-                while (true)
-                {
-                    stateKeyControl = Convert.ToInt32(GetAsyncKeyState(keyToCheckControl));
-                    stateKeyNumPad0 = Convert.ToInt32(GetAsyncKeyState(keyToCheckNum));
-                    stateKeyD0 = Convert.ToInt32(GetAsyncKeyState(keyToCheckNumTop));
-
-                    if (stateKeyControl == -32768 && stateKeyNumPad0 == -32767 || stateKeyControl == -32768 && stateKeyD0 == -32767)
-                    {
-                        mainView.Invoke((Action)(() => { mainView.SetMaxSizeOfWindow(); }));
-                    }
-
-                    if (ct.IsCancellationRequested)
-                        break;
-
-                    await Task.Delay(15);
-                }
-            }, ct);
-        }
-
-        private void CancelAnoderTaskTokenSource(object sender, EventArgs e)
-        {
-            cancelTokenSource.Cancel();
-        }
-
-        #endregion
+                
     }
 }

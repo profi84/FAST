@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveButtonEventArgs.cs" />
     <Compile Include="Buttons\BasicButton.cs" />
     <Compile Include="Buttons\StartExplorerButton.cs" />
     <Compile Include="Buttons\StartFileWithProgramButton.cs" />

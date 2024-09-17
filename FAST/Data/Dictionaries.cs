@@ -22,6 +22,13 @@ namespace FAST.Data
             [2] = "StartWebsiteButton"
         };
 
+        public static Dictionary<string, string> KindOfButtonsNames = new Dictionary<string, string>()
+        {
+            ["StartExplorerButton"] = "StartExplorerButton",
+            ["StartFileWithProgramButton"] = "StartFileWithProgramButton",
+            ["StartWebsiteButton"] = "StartWebsiteButton"
+        };
+
         public static Dictionary<string, string> KindOfButtonsNameForForm = new Dictionary<string, string>()
         {
             ["StartExplorerButton"] = "Explorer öffnen",
