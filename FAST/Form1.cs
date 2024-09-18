@@ -33,7 +33,10 @@ namespace FAST
             {
                 button.Click += (s, a) =>
                 {
-                    if (buttonClick != null) buttonClick(this, new ActiveButtonEventArgs(button.Name));
+                    if (buttonClick != null)
+                    {
+                        buttonClick(this, new ActiveButtonEventArgs(button.Name));
+                    }
                 };
             }
 
@@ -45,8 +48,7 @@ namespace FAST
                     WindowState = FormWindowState.Minimized;
                 }
             };
-
-            this.FormClosed += Form1_FormClosed; // Event to close TokenSource in Presenter. Anoder Task.
+            
             this.FormClosed += (s, a) => cancelTokenSource.Cancel();
 
             CheckKeyCombination();
@@ -55,8 +57,6 @@ namespace FAST
         #region // Variables
 
         public event EventHandler<ActiveButtonEventArgs> buttonClick;
-        public event EventHandler CancelTokenSource;
-        public event EventHandler CreateNewTab;
 
         private bool ifNotCloseForm = true;
         private bool showTrayMessage = true;
@@ -102,7 +102,6 @@ namespace FAST
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ifNotCloseForm = false;
-            if (CancelTokenSource != null) CancelTokenSource(this, EventArgs.Empty);
             this.Close();
         }
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -114,19 +113,10 @@ namespace FAST
 
         #region // Form events
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (CancelTokenSource != null) CancelTokenSource(this, EventArgs.Empty);
-        }
-
-        private void ButtonCreateNewTab_Click(object sender, EventArgs e)
-        {
-            if (CreateNewTab != null) CreateNewTab(this, EventArgs.Empty);
-        }
 
         #endregion
 
-        #region // Async Task for checking of key state
+        #region // Async Task for checking of key state // CheckKeyCombination()
 
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);

@@ -42,14 +42,30 @@ namespace FAST.Settings
 
         #endregion
 
-        // All important params from Settings value region. Always to enter, if new params of settings creates
-        public List<string> AllImportantSettingsFiles()
+        // All important params from Settings value region. Always to enter, if new param of settings is created
+        public List<string> GetAllImportantSettingsFiles()
         {
             List<string> AllSettings = new List<string>();
                         
             AllSettings.Add(GetSettingsFile);
 
             return AllSettings;
+        }
+
+        // All buttons from Main Form. Always to enter, if new button is created
+        public List<string> GetAllNamesOfButtonsFromMainView()
+        {
+            List<string> allButtonsOfMainView = new List<string>
+            {
+                "ButtonCreateNewTab",
+                "ButtonCreateNewButton",
+                "ButtonRemoveTab",
+                "ButtonRemoveButton",
+                "ButtonSortTabs",
+                "ButtonSortButtons"
+            };
+
+            return allButtonsOfMainView;
         }
     }
 }

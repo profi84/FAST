@@ -36,6 +36,17 @@ namespace FAST.Data
             ["StartWebsiteButton"] = "Webseite öffnen"
         };
 
+        public static Dictionary<string, string> ButtonsOfMainView = new Dictionary<string, string>()
+        {
+            ["B__ BasicButton"] = "B__",
+            ["ButtonCreateNewTab"] = "ButtonCreateNewTab",
+            ["ButtonCreateNewButton"] = "ButtonCreateNewButton",
+            ["ButtonRemoveTab"] = "ButtonRemoveTab",
+            ["ButtonRemoveButton"] = "ButtonRemoveButton",
+            ["ButtonSortTabs"] = "ButtonSortTabs",
+            ["ButtonSortButtons"] = "ButtonSortButtons"
+        };
+
         #endregion
 
     }

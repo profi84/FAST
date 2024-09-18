@@ -18,7 +18,7 @@ namespace FAST.Models
 
         public bool CheckAllSettingsFiles()
         {
-            List<string> values = SettingsValuesPermanent.Instance().AllImportantSettingsFiles();
+            List<string> values = SettingsValuesPermanent.Instance().GetAllImportantSettingsFiles();
             bool isAllSettingsToGet = true;
 
             foreach (string path in values)

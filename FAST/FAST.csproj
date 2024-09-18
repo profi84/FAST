@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ExecutingOfExplorerButton.cs" />
+    <Compile Include="Models\ExecutingOfProgramButton.cs" />
+    <Compile Include="Models\ExecutingOfWebsiteButton.cs" />
     <Compile Include="ParamsEventArgs\ActiveButtonEventArgs.cs" />
     <Compile Include="Buttons\BasicButton.cs" />
     <Compile Include="Buttons\StartExplorerButton.cs" />
