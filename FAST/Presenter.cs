@@ -60,6 +60,11 @@ namespace FAST
         }
         #endregion
 
+        private void BasicButtonsMainView_Click(object sender, ActiveButtonEventArgs e)
+        {
+            CheckWhichButtonWasClickedMainView(e);
+        }
+
         private void CheckWhichButtonWasClickedMainView(ActiveButtonEventArgs eventParam)
         {     
             if (eventParam.ActiveButtonName.Contains(Dictionaries.ButtonsOfMainView["B__ BasicButton"]) && eventParam.IndexListOne != -1)
@@ -72,7 +77,7 @@ namespace FAST
             }
             else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonCreateNewButton"])
             {
-
+                CreateNewButtonForm();
             }
             else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonRemoveTab"])
             {
@@ -92,28 +97,21 @@ namespace FAST
             }            
         }
 
-        private void BasicButtonsMainView_Click(object sender, ActiveButtonEventArgs e)
-        {
-            CheckWhichButtonWasClickedMainView(e);            
-        }
-
         #region // Events formsNewTab
                 
         private void CreateNewTab()
         {
             createNewTabForm = new CreateNewTabForm();
-            createNewTabForm.CreateNewTabFormOK += new EventHandler(CreateNewTabForm_OK);
+            createNewTabForm.CreateNewTabFormOK += new EventHandler<NewTabEventParam>(CreateNewTabForm_OK);
             createNewTabForm.CreateNewTabFormCancel += new EventHandler(CreateNewTabForm_Cancel);
             createNewTabForm.ShowDialog();
         }
 
-        private void CreateNewTabForm_OK(object sender, EventArgs e)
+        private void CreateNewTabForm_OK(object sender, NewTabEventParam paramEventNewTabName)
         {
-            string valueTab = createNewTabForm.GetTabName();
-
-            if (!listOfTabs.Contains(valueTab))
+            if (!listOfTabs.Contains(paramEventNewTabName.NewTabName))
             {
-                listOfTabs.Add(valueTab);
+                listOfTabs.Add(paramEventNewTabName.NewTabName);
                 createNewTabForm.Close();
                 new WriteDB().SaveTabs(listOfTabs);
             }
@@ -129,7 +127,37 @@ namespace FAST
             createNewTabForm.Close();
         }
 
+        #endregion // Events formNewButton
+
+        private void CreateNewButtonForm()
+        {
+            if (listOfTabs.Count > 0)
+            {
+                createNewButtonForm = new CreateNewButtonForm(listOfTabs);
+                createNewButtonForm.CreateNewButtonFormOK += new EventHandler(CreateNewButtonForm_OK);
+                createNewButtonForm.CreateNewButtonFormCancel += new EventHandler(CreateNewButtonForm_Cancel);
+                createNewButtonForm.ShowDialog();
+            }
+            else
+            {
+                MessageBoxCollection.Instance().ShowInfoMessageBox("Reitern nicht vorhanden. Bitte mindestens einen anlegen!", "Reiter fehlen!");
+            }
+        }
+
+        private void CreateNewButtonForm_OK(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void CreateNewButtonForm_Cancel(object sender, EventArgs e)
+        {
+            createNewButtonForm.Close();
+        }
+
+
+        #region
+
         #endregion
-                
+
     }
 }

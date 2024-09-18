@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.CompilerServices;
+using FAST.ParamsEventArgs;
 
 namespace FAST.Forms
 {
@@ -26,7 +27,7 @@ namespace FAST.Forms
             
         }
 
-        public event EventHandler CreateNewTabFormOK;
+        public event EventHandler<NewTabEventParam> CreateNewTabFormOK;
         public event EventHandler CreateNewTabFormCancel;
         
         #region // Public methods
@@ -36,11 +37,6 @@ namespace FAST.Forms
             TextBoxTabName.Clear();
         }
 
-        public string GetTabName()
-        {
-            return TextBoxTabName.Text.Trim();
-        }
-
         #endregion
 
         #region // Buttons click
@@ -48,7 +44,7 @@ namespace FAST.Forms
         private void ButtonOK_Click(object sender, EventArgs e)
         {
             if(TextBoxTabName.Text != String.Empty)
-                if (CreateNewTabFormOK != null) CreateNewTabFormOK(this, EventArgs.Empty);
+                if (CreateNewTabFormOK != null) CreateNewTabFormOK(this, new NewTabEventParam(TextBoxTabName.Text.Trim()));
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)

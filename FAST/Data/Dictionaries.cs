@@ -12,7 +12,7 @@ namespace FAST.Data
         #region // To enter date, if new buttons are created. 
 
         /* If you create new kind of button in your program you have to input this kind in the dictionary.
-           The order of names is not important. What is important is to enter all types of buttons.
+           The order of names is very important. All dictionaries has to get the same order.
            Only all inheritance classes and not the "BasicButton" class */
 
         public static Dictionary<int, string> KindOfButtonsMain = new Dictionary<int, string>()
@@ -22,20 +22,21 @@ namespace FAST.Data
             [2] = "StartWebsiteButton"
         };
 
-        public static Dictionary<string, string> KindOfButtonsNames = new Dictionary<string, string>()
+        public static Dictionary<int, string> KindOfButtonsNamesGerman = new Dictionary<int, string>()
         {
-            ["StartExplorerButton"] = "StartExplorerButton",
-            ["StartFileWithProgramButton"] = "StartFileWithProgramButton",
-            ["StartWebsiteButton"] = "StartWebsiteButton"
+            [0] = "Explorer öffnen",
+            [1] = "Dokument öffnen",
+            [2] = "Webseite öffnen"
         };
 
-        public static Dictionary<string, string> KindOfButtonsNameForForm = new Dictionary<string, string>()
+        public static Dictionary<string, string> KindOfButtonsNamemTranslated = new Dictionary<string, string>()
         {
-            ["StartExplorerButton"] = "Explorer öffnen",
-            ["StartFileWithProgramButton"] = "Dokument öffnen",
-            ["StartWebsiteButton"] = "Webseite öffnen"
+            ["Explorer öffnen"] = "StartExplorerButton",
+            ["Dokument öffnen"] = "StartFileWithProgramButton",
+            ["Webseite öffnen"] = "StartWebsiteButton"
         };
 
+        // Order ist not important for dictionary ButtonsOfMainView
         public static Dictionary<string, string> ButtonsOfMainView = new Dictionary<string, string>()
         {
             ["B__ BasicButton"] = "B__",

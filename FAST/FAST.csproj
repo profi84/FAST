@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="MessageBoxes\MessageBoxCollection.cs" />
     <Compile Include="Models\AvailabilityOfFolderStructure.cs" />
+    <Compile Include="ParamsEventArgs\NewTabEventParam.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

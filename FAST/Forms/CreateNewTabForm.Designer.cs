@@ -74,11 +74,10 @@
             // 
             // TextBoxTabName
             // 
-            this.TextBoxTabName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBoxTabName.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextBoxTabName.Location = new System.Drawing.Point(20, 50);
             this.TextBoxTabName.Name = "TextBoxTabName";
-            this.TextBoxTabName.Size = new System.Drawing.Size(325, 22);
+            this.TextBoxTabName.Size = new System.Drawing.Size(325, 29);
             this.TextBoxTabName.TabIndex = 0;
             // 
             // CreateNewTabForm

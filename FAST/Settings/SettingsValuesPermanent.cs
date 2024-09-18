@@ -18,8 +18,8 @@ namespace FAST.Settings
             GetExecutingLocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
             GetDataFolderLocation = GetExecutingLocation + "Data\\";
             GetSettingsFile = GetExecutingLocation + "Settings.json";
-            GetTabSaveFile = GetExecutingLocation + GetDataFolderLocation + "ListOfTabs.json";
-            GetButtonsSaveFile = GetExecutingLocation + GetDataFolderLocation + "ListOfButtons.json";
+            GetTabSaveFile = GetDataFolderLocation + "ListOfTabs.json";
+            GetButtonsSaveFile = GetDataFolderLocation + "ListOfButtons.json";
         }
 
         public static SettingsValuesPermanent Instance()
