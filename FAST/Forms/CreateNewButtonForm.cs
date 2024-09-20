@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FAST.Properties;
+using System.Web;
 
 namespace FAST.Forms
 {
@@ -21,6 +22,7 @@ namespace FAST.Forms
             InitializeComponent();
             ShowComboBoxTabs(listOfTabs);
             ShowComboBoxKindOfButton();
+            this.listOfTabs = listOfTabs;
         }
 
         private void CreateNewButtonForm_Load(object sender, EventArgs e)
@@ -28,6 +30,7 @@ namespace FAST.Forms
             
         }
 
+        List<string> listOfTabs = new List<string>();   
         public event EventHandler CreateNewButtonFormOK;
         public event EventHandler CreateNewButtonFormCancel;
 
@@ -36,7 +39,7 @@ namespace FAST.Forms
         public BasicButton GetNewButton()
         {            
 
-            if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesGerman[0])
+            if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartExplorerButton"])
             {
                 return new StartExplorerButton()
                 {
@@ -47,7 +50,7 @@ namespace FAST.Forms
                     PathFolder = TextBoxPathExplorer.Text.Trim(),
                 };
             }
-            else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesGerman[1])
+            else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartFileWithProgramButton"])
             {
                 return new StartFileWithProgramButton()
                 {
@@ -57,7 +60,7 @@ namespace FAST.Forms
                     ButtonType = ComboBoxKindOfButton.Text.Trim()
                 };
             }
-            else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesGerman[2])
+            else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartWebsiteButton"])
             {
                 return new StartWebsiteButton()
                 {
@@ -118,13 +121,51 @@ namespace FAST.Forms
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            if(TextBoxTitle.Text != String.Empty && ComboBoxTabs.Text != String.Empty && ComboBoxKindOfButton.Text != String.Empty)
+            if(TextBoxTitle.Text != String.Empty && CheckValueOfTabComboBox() && CheckValueOfButtonComboBox())
                 if (CreateNewButtonFormOK != null) CreateNewButtonFormOK(this, EventArgs.Empty);
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             if (CreateNewButtonFormCancel != null) CreateNewButtonFormCancel(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region // Private methods
+
+        private bool CheckValueOfTabComboBox()
+        {
+            bool returnValue = false;
+            string tempValue = ComboBoxTabs.Text.Trim();
+
+            foreach (string item in listOfTabs)
+            {
+                if (tempValue == item)
+                {
+                    returnValue = true;
+                    break;
+                }
+            }
+
+            return returnValue;
+        }
+
+        private bool CheckValueOfButtonComboBox()
+        {
+            bool returnValue = false;
+            string tempValue = ComboBoxKindOfButton.Text.Trim();
+
+            for (int i = 0; i < Dictionaries.KindOfButtonsNamesGerman.Count; i++)
+            {
+                if (tempValue == Dictionaries.KindOfButtonsNamesGerman[i])
+                {
+                    returnValue = true;
+                    break;
+                }
+            }
+
+            return returnValue;
         }
 
         #endregion

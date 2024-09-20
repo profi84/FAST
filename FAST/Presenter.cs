@@ -146,7 +146,8 @@ namespace FAST
 
         private void CreateNewButtonForm_OK(object sender, EventArgs e)
         {
-            
+            BasicButton basicButton = createNewButtonForm.GetNewButton();
+
         }
 
         private void CreateNewButtonForm_Cancel(object sender, EventArgs e)
