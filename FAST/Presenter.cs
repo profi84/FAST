@@ -51,6 +51,7 @@ namespace FAST
             else
             {
                 SubscribeEventsFromMainView();
+                ImportTabsAndButtons();
             }
         }
 
@@ -58,6 +59,16 @@ namespace FAST
         {            
             mainView.buttonClick += new EventHandler<ActiveButtonEventArgs>(BasicButtonsMainView_Click);
         }
+
+        private void ImportTabsAndButtons()
+        {
+            listOfTabs.Clear();
+            listOfButtons.Clear();
+
+            listOfTabs = new ReadDB().GetListOfTabs();
+            listOfButtons = new ReadDB().GetListOfButtons();
+        }
+
         #endregion
 
         private void BasicButtonsMainView_Click(object sender, ActiveButtonEventArgs e)
@@ -112,8 +123,13 @@ namespace FAST
             if (!listOfTabs.Contains(paramEventNewTabName.NewTabName))
             {
                 listOfTabs.Add(paramEventNewTabName.NewTabName);
+                listOfButtons.Add(new List<BasicButton>());
+
+                WriteDB writeDB = new WriteDB();
+                writeDB.SaveTabs(listOfTabs);
+                writeDB.SaveButtons(listOfButtons);
+
                 createNewTabForm.Close();
-                new WriteDB().SaveTabs(listOfTabs);
             }
             else
             {
@@ -148,6 +164,19 @@ namespace FAST
         {
             BasicButton basicButton = createNewButtonForm.GetNewButton();
 
+            for (int i = 0;i < listOfTabs.Count; i++)
+            {
+                if(basicButton.GetTabName == listOfTabs[i])
+                {
+                    listOfButtons[i].Add(basicButton);
+                    break;
+                }
+            }
+
+            WriteDB writeDB = new WriteDB();
+            writeDB.SaveButtons(listOfButtons);
+
+            createNewButtonForm.Close();
         }
 
         private void CreateNewButtonForm_Cancel(object sender, EventArgs e)

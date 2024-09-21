@@ -13,7 +13,7 @@ namespace FAST.Models
     {
         public ExecutingOfProgramButton(StartFileWithProgramButton startFileWithProgramButton)
         {
-            if (ChechParams(startFileWithProgramButton.PathOfFile))
+            if (ChechParams(startFileWithProgramButton.GetPathOfFile))
             {
                 StartProcess(startFileWithProgramButton);
             }

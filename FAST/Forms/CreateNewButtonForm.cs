@@ -43,31 +43,33 @@ namespace FAST.Forms
             {
                 return new StartExplorerButton()
                 {
-                    Title = TextBoxTitle.Text.Trim(),
-                    Description = TextBoxDescription.Text.Trim(),
-                    TabName = ComboBoxTabs.Text.Trim(),
-                    ButtonType = ComboBoxKindOfButton.Text.Trim(),
-                    PathFolder = TextBoxPathExplorer.Text.Trim(),
+                    GetTitle = TextBoxTitle.Text.Trim(),
+                    GetDescription = TextBoxDescription.Text.Trim(),
+                    GetTabName = ComboBoxTabs.Text.Trim(),
+                    GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
+                    GetPathFolder = TextBoxPathExplorer.Text.Trim(),
                 };
             }
             else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartFileWithProgramButton"])
             {
                 return new StartFileWithProgramButton()
                 {
-                    Title = TextBoxTitle.Text.Trim(),
-                    Description = TextBoxDescription.Text.Trim(),
-                    TabName = ComboBoxTabs.Text.Trim(),
-                    ButtonType = ComboBoxKindOfButton.Text.Trim()
+                    GetTitle = TextBoxTitle.Text.Trim(),
+                    GetDescription = TextBoxDescription.Text.Trim(),
+                    GetTabName = ComboBoxTabs.Text.Trim(),
+                    GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
+                    GetPathOfFile = TextBoxPathFile.Text.Trim()
                 };
             }
             else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartWebsiteButton"])
             {
                 return new StartWebsiteButton()
                 {
-                    Title = TextBoxTitle.Text.Trim(),
-                    Description = TextBoxDescription.Text.Trim(),
-                    TabName = ComboBoxTabs.Text.Trim(),
-                    ButtonType = ComboBoxKindOfButton.Text.Trim()
+                    GetTitle = TextBoxTitle.Text.Trim(),
+                    GetDescription = TextBoxDescription.Text.Trim(),
+                    GetTabName = ComboBoxTabs.Text.Trim(),
+                    GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
+                    GetAddressOfWebsite = TextBoxAddressOfWebsite.Text.Trim(),
                 };
             }
             else

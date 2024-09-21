@@ -14,7 +14,7 @@ namespace FAST.Models
         public AvailabilityOfFolderStructure()
         {
             CreateDataFolderIfNotExist();
-        }  
+        }
 
         public bool CheckAllSettingsFiles()
         {

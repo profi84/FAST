@@ -13,7 +13,7 @@ namespace FAST.Models
     {
         public ExecutingOfExplorerButton(StartExplorerButton startExplorerButton)
         {
-            if(ChechParams(startExplorerButton.PathFolder))
+            if(ChechParams(startExplorerButton.GetPathFolder))
             {
                 StartProcess(startExplorerButton);
             }

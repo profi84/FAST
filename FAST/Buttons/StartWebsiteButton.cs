@@ -8,10 +8,10 @@ namespace FAST.Buttons
 {
     public class StartWebsiteButton : BasicButton
     {
-        public string AddressOfWebsite { get; set; }
+        public string GetAddressOfWebsite { get; set; }
 
-        public bool IfNotDefaultBrowser { get; set; }
+        public bool GetIfNotDefaultBrowser { get; set; }
 
-        public string PathOfBrowserIfNotDefault { get; set; }
+        public string GetPathOfBrowserIfNotDefault { get; set; }
     }
 }

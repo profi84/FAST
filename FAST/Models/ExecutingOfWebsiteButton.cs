@@ -13,7 +13,7 @@ namespace FAST.Models
     {
         public ExecutingOfWebsiteButton(StartWebsiteButton startWebsiteButton)
         {
-            if (startWebsiteButton.AddressOfWebsite != null)
+            if (startWebsiteButton.GetAddressOfWebsite != null)
             {
                 StartProcess(startWebsiteButton);
             }

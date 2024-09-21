@@ -39,8 +39,10 @@
             this.ButtonRemoveButton = new System.Windows.Forms.Button();
             this.ButtonSortTabs = new System.Windows.Forms.Button();
             this.ButtonSortButtons = new System.Windows.Forms.Button();
-            this.B__2_7 = new System.Windows.Forms.Button();
+            this.contextMenuMainForm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuMainView.SuspendLayout();
+            this.contextMenuMainForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // NotifyIcon
@@ -67,73 +69,77 @@
             // 
             // ButtonCreateNewTab
             // 
-            this.ButtonCreateNewTab.Location = new System.Drawing.Point(12, 26);
+            this.ButtonCreateNewTab.Location = new System.Drawing.Point(10, 30);
             this.ButtonCreateNewTab.Name = "ButtonCreateNewTab";
-            this.ButtonCreateNewTab.Size = new System.Drawing.Size(132, 46);
+            this.ButtonCreateNewTab.Size = new System.Drawing.Size(140, 45);
             this.ButtonCreateNewTab.TabIndex = 1;
             this.ButtonCreateNewTab.Text = "Reiter erstellen";
             this.ButtonCreateNewTab.UseVisualStyleBackColor = true;
             // 
             // ButtonCreateNewButton
             // 
-            this.ButtonCreateNewButton.Location = new System.Drawing.Point(161, 26);
+            this.ButtonCreateNewButton.Location = new System.Drawing.Point(160, 30);
             this.ButtonCreateNewButton.Name = "ButtonCreateNewButton";
-            this.ButtonCreateNewButton.Size = new System.Drawing.Size(129, 46);
+            this.ButtonCreateNewButton.Size = new System.Drawing.Size(140, 45);
             this.ButtonCreateNewButton.TabIndex = 2;
             this.ButtonCreateNewButton.Text = "Lesezeichen erstellen";
             this.ButtonCreateNewButton.UseVisualStyleBackColor = true;
             // 
             // ButtonRemoveTab
             // 
-            this.ButtonRemoveTab.Location = new System.Drawing.Point(313, 28);
+            this.ButtonRemoveTab.Location = new System.Drawing.Point(310, 30);
             this.ButtonRemoveTab.Name = "ButtonRemoveTab";
-            this.ButtonRemoveTab.Size = new System.Drawing.Size(127, 43);
+            this.ButtonRemoveTab.Size = new System.Drawing.Size(140, 45);
             this.ButtonRemoveTab.TabIndex = 3;
             this.ButtonRemoveTab.Text = "Reiter löschen";
             this.ButtonRemoveTab.UseVisualStyleBackColor = true;
             // 
             // ButtonRemoveButton
             // 
-            this.ButtonRemoveButton.Location = new System.Drawing.Point(454, 31);
+            this.ButtonRemoveButton.Location = new System.Drawing.Point(460, 30);
             this.ButtonRemoveButton.Name = "ButtonRemoveButton";
-            this.ButtonRemoveButton.Size = new System.Drawing.Size(134, 40);
+            this.ButtonRemoveButton.Size = new System.Drawing.Size(140, 45);
             this.ButtonRemoveButton.TabIndex = 4;
             this.ButtonRemoveButton.Text = "Lesezeichen löschen";
             this.ButtonRemoveButton.UseVisualStyleBackColor = true;
             // 
             // ButtonSortTabs
             // 
-            this.ButtonSortTabs.Location = new System.Drawing.Point(602, 31);
+            this.ButtonSortTabs.Location = new System.Drawing.Point(610, 30);
             this.ButtonSortTabs.Name = "ButtonSortTabs";
-            this.ButtonSortTabs.Size = new System.Drawing.Size(134, 39);
+            this.ButtonSortTabs.Size = new System.Drawing.Size(140, 45);
             this.ButtonSortTabs.TabIndex = 5;
             this.ButtonSortTabs.Text = "Reiter einordnen";
             this.ButtonSortTabs.UseVisualStyleBackColor = true;
             // 
             // ButtonSortButtons
             // 
-            this.ButtonSortButtons.Location = new System.Drawing.Point(749, 33);
+            this.ButtonSortButtons.Location = new System.Drawing.Point(760, 30);
             this.ButtonSortButtons.Name = "ButtonSortButtons";
-            this.ButtonSortButtons.Size = new System.Drawing.Size(132, 36);
+            this.ButtonSortButtons.Size = new System.Drawing.Size(140, 45);
             this.ButtonSortButtons.TabIndex = 6;
             this.ButtonSortButtons.Text = "Lesezeichen einordnen";
             this.ButtonSortButtons.UseVisualStyleBackColor = true;
             // 
-            // B__2_7
+            // contextMenuMainForm
             // 
-            this.B__2_7.Location = new System.Drawing.Point(12, 138);
-            this.B__2_7.Name = "B__2_7";
-            this.B__2_7.Size = new System.Drawing.Size(132, 45);
-            this.B__2_7.TabIndex = 7;
-            this.B__2_7.Text = "button1";
-            this.B__2_7.UseVisualStyleBackColor = true;
+            this.contextMenuMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.einstellungenToolStripMenuItem});
+            this.contextMenuMainForm.Name = "contextMenuMainForm";
+            this.contextMenuMainForm.Size = new System.Drawing.Size(146, 26);
+            // 
+            // einstellungenToolStripMenuItem
+            // 
+            this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 438);
-            this.Controls.Add(this.B__2_7);
+            this.ContextMenuStrip = this.contextMenuMainForm;
             this.Controls.Add(this.ButtonSortButtons);
             this.Controls.Add(this.ButtonSortTabs);
             this.Controls.Add(this.ButtonRemoveButton);
@@ -145,9 +151,11 @@
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.Text = "FAST - Fast All Start Tool. Maximieren durch \"STRG\" + \"0\"";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuMainView.ResumeLayout(false);
+            this.contextMenuMainForm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -163,7 +171,8 @@
         private System.Windows.Forms.Button ButtonRemoveButton;
         private System.Windows.Forms.Button ButtonSortTabs;
         private System.Windows.Forms.Button ButtonSortButtons;
-        private System.Windows.Forms.Button B__2_7;
+        private System.Windows.Forms.ContextMenuStrip contextMenuMainForm;
+        private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
     }
 }
 

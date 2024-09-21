@@ -8,6 +8,6 @@ namespace FAST.Buttons
 {
     public class StartExplorerButton : BasicButton
     {
-        public string PathFolder { get; set; }
+        public string GetPathFolder { get; set; }
     }
 }

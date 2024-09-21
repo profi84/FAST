@@ -8,12 +8,12 @@ namespace FAST.Buttons
 {
     public class BasicButton
     {
-        public string Title { get; set; }
+        public string GetTitle { get; set; }
 
-        public string Description { get; set; }
+        public string GetDescription { get; set; }
 
-        public string TabName { get; set; }
+        public string GetTabName { get; set; }
 
-        public string ButtonType { get; set; }        	
+        public string GetButtonType { get; set; }        	
 	}
 }

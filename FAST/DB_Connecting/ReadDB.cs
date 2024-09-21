@@ -61,12 +61,34 @@ namespace FAST.DB_Connecting
             {
                 if (basicBattonObject.ToString().Contains(Dictionaries.KindOfButtonsMain[i]))
                 {
-                    basicButton = JsonConvert.DeserializeObject<BasicButton>(basicBattonObject.ToString());
+                    basicButton = GetImportedObject(basicBattonObject, Dictionaries.KindOfButtonsMain[i]);
                     break;
                 }
             }
 
             return basicButton;
         }
+
+        // You have always to enter new if quastions, if you enter new kind of button to your program.
+        private BasicButton GetImportedObject(JToken basicBattonObject, string kindOfButton)
+        {
+            BasicButton basicButton = new BasicButton();
+
+            if (kindOfButton == Dictionaries.KindOfButtonsMain[0])
+            {
+                basicButton = JsonConvert.DeserializeObject<StartExplorerButton>(basicBattonObject.ToString());
+            }
+            else if (kindOfButton == Dictionaries.KindOfButtonsMain[1])
+            {
+                basicButton = JsonConvert.DeserializeObject<StartFileWithProgramButton>(basicBattonObject.ToString());
+            }
+            else if (kindOfButton == Dictionaries.KindOfButtonsMain[2])
+            {
+                basicButton = JsonConvert.DeserializeObject<StartWebsiteButton>(basicBattonObject.ToString());
+            }            
+
+            return basicButton;
+        }
+
     }
 }
