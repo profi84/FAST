@@ -43,16 +43,11 @@ namespace FAST.Data
             ["Webseite öffnen"] = "StartWebsiteButton"
         };
 
-        // Order ist not important for dictionary ButtonsOfMainView
+        // Is importand for flaxible buttons from tabcontrol.
+        // All buttons of tabcontrol have specific format "B__"index List level 1"_"index List level 2"
         public static Dictionary<string, string> ButtonsOfMainView = new Dictionary<string, string>()
         {
-            ["B__ BasicButton"] = "B__",
-            ["ButtonCreateNewTab"] = "ButtonCreateNewTab",
-            ["ButtonCreateNewButton"] = "ButtonCreateNewButton",
-            ["ButtonRemoveTab"] = "ButtonRemoveTab",
-            ["ButtonRemoveButton"] = "ButtonRemoveButton",
-            ["ButtonSortTabs"] = "ButtonSortTabs",
-            ["ButtonSortButtons"] = "ButtonSortButtons"
+            ["B__ BasicButton"] = "B__"            
         };
 
         #endregion

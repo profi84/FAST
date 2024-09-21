@@ -52,6 +52,7 @@
     <Compile Include="Models\ExecutingOfExplorerButton.cs" />
     <Compile Include="Models\ExecutingOfProgramButton.cs" />
     <Compile Include="Models\ExecutingOfWebsiteButton.cs" />
+    <Compile Include="Models\ExecutionOfButtons.cs" />
     <Compile Include="ParamsEventArgs\ActiveButtonEventArgs.cs" />
     <Compile Include="Buttons\BasicButton.cs" />
     <Compile Include="Buttons\StartExplorerButton.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\SettingsValuesDynamic.cs" />
+    <Compile Include="Settings\SettingsValuesFlexible.cs" />
     <Compile Include="Settings\SettingsValuesPermanent.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

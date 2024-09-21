@@ -17,7 +17,6 @@ namespace FAST.Settings
         {
             GetExecutingLocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
             GetDataFolderLocation = GetExecutingLocation + "Data\\";
-            GetSettingsFile = GetExecutingLocation + "Settings.json";
             GetTabSaveFile = GetDataFolderLocation + "ListOfTabs.json";
             GetButtonsSaveFile = GetDataFolderLocation + "ListOfButtons.json";
         }
@@ -36,7 +35,6 @@ namespace FAST.Settings
 
         public string GetExecutingLocation { get; }
         public string GetDataFolderLocation { get; }
-        public string GetSettingsFile { get; }
         public string GetTabSaveFile { get; }
         public string GetButtonsSaveFile { get; }
 
@@ -46,26 +44,8 @@ namespace FAST.Settings
         public List<string> GetAllImportantSettingsFiles()
         {
             List<string> AllSettings = new List<string>();
-                        
-            AllSettings.Add(GetSettingsFile);
 
             return AllSettings;
-        }
-
-        // All buttons from Main Form. Always to enter, if new button is created
-        public List<string> GetAllNamesOfButtonsFromMainView()
-        {
-            List<string> allButtonsOfMainView = new List<string>
-            {
-                "ButtonCreateNewTab",
-                "ButtonCreateNewButton",
-                "ButtonRemoveTab",
-                "ButtonRemoveButton",
-                "ButtonSortTabs",
-                "ButtonSortButtons"
-            };
-
-            return allButtonsOfMainView;
         }
     }
 }

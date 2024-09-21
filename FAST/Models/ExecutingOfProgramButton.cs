@@ -3,6 +3,7 @@ using FAST.Data;
 using FAST.MessageBoxes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,11 @@ namespace FAST.Models
 
         private bool ChechParams(string path)
         {
-            return true;
+            if (path.Contains('"'))
+            {
+                path = path.Substring(1, path.Length - 2);
+            }
+            return File.Exists(path);
         }
 
         private void StartProcess(StartFileWithProgramButton startFileWithProgramButton)

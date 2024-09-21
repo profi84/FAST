@@ -3,6 +3,8 @@ using FAST.Data;
 using FAST.MessageBoxes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +21,23 @@ namespace FAST.Models
             }
             else
             {
-                MessageBoxCollection.Instance().ShowInfoMessageBox("Inhalte des Lesezeichens sind nicht korrekt. Bitte überprügen, oder erneut anlegen!",
+                MessageBoxCollection.Instance().ShowInfoMessageBox("Inhalte des Lesezeichens sind nicht korrekt. Bitte überprüfen, oder erneut anlegen!",
                     "Falsche Daten!");
             }
         }
 
         private bool ChechParams(string path)
         {
-            return true;
+            if(path.Contains('"'))
+            {
+                path = path.Substring(1, path.Length -2);
+            }
+            return Directory.Exists(path);
         }
 
-        private void StartProcess(StartExplorerButton startExplorerButton )
+        private void StartProcess(StartExplorerButton startExplorerButton)
         {
-
+            Process.Start(startExplorerButton.GetPathFolder);
         }
     }
 }

@@ -3,12 +3,15 @@ using FAST.Data;
 using FAST.Forms;
 using FAST.MessageBoxes;
 using FAST.ParamsEventArgs;
+using FAST.Settings;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -27,20 +30,7 @@ namespace FAST
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            MaximizeWindow();
-            CreateTabControl();
-            foreach (Button button in Controls.OfType<Button>())
-            {
-                button.Click += (s, a) =>
-                {
-                    if (buttonClick != null)
-                    {
-                        buttonClick(this, new ActiveButtonEventArgs(button.Name));
-                    }
-                };
-            }
-            
+        {            
             FormClosing += (s, a) =>
             {
                 if (ifNotCloseForm)
@@ -52,24 +42,60 @@ namespace FAST
             
             this.FormClosed += (s, a) => cancelTokenSource.Cancel();
 
+            ButtonCreateNewTab.Click += new EventHandler(ButtonCreateNewTab_Click);
+            ButtonCreateNewButton.Click += new EventHandler(ButtonCreateNewButton_Click);
+
+            MaximizeWindow();
+            CreateTabControl();
             CheckKeyCombination();
+            ShowTabControl_View(this, new EventArgs());
+            tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
-                
+
         #region // Variables
 
         public event EventHandler<ActiveButtonEventArgs> buttonClick;
+        public event EventHandler CreateNewTab;
+        public event EventHandler CreateNewButton;
+        public event EventHandler ShowTabControl;
         private bool ifNotCloseForm = true;
         private bool showTrayMessage = true;
         TabControl tabControl = new TabControl();
         List<TabPage> tabPages = new List<TabPage>();
+
+        private int sizeTabContorlWidth;
+        private int sizeTabContorlHeight;
+        private int aktualyValueWidth = 0;        
+        private int linesOfButton = 0;
+
         #endregion
 
         #region // Public methods
-                
+
+        public void ShowButtonsOnView(List<List<BasicButton>> listOfButtons, List<string>listOfTabs)
+        {
+            RemoveButtonsFromView();
+
+            for (int i = 0; i < listOfButtons.Count; i++)
+            {
+                aktualyValueWidth = 0;
+                linesOfButton = 0;
+
+                tabControl.Controls.Add(CreateTabPage(i, listOfButtons[i], listOfTabs[i]));
+            }
+        }
 
         #endregion
 
         #region // Private methods
+
+        private void RemoveButtonsFromView()
+        {
+            foreach (TabPage page in tabPages)
+            {
+                page.Dispose();
+            }
+        }
 
         private void SetMaxSizeOfWindow()
         {
@@ -80,53 +106,128 @@ namespace FAST
         {
             WindowState = FormWindowState.Maximized;
         }
+
+        private void ColorActiveTabPage(object sender, DrawItemEventArgs a)
+        {
+            Font fntTab;
+            Brush bshBack;
+            Brush bshFore;
+            if (a.Index == this.tabControl.SelectedIndex)
+            {
+                fntTab = new Font(a.Font, FontStyle.Bold);
+                bshBack = new System.Drawing.Drawing2D.LinearGradientBrush(a.Bounds, Color.LightSkyBlue, Color.LightGreen, System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal);
+                bshFore = Brushes.Blue;
+            }
+            else
+            {
+                fntTab = a.Font;
+                bshBack = new SolidBrush(Color.White);
+                bshFore = new SolidBrush(Color.Black);
+            }
+            string tabName = this.tabControl.TabPages[a.Index].Text;
+            StringFormat sftTab = new StringFormat(StringFormatFlags.NoClip);
+            sftTab.Alignment = StringAlignment.Center;
+            sftTab.LineAlignment = StringAlignment.Center;
+            a.Graphics.FillRectangle(bshBack, a.Bounds);
+            Rectangle recTab = a.Bounds;
+            recTab = new Rectangle(recTab.X, recTab.Y + 4, recTab.Width, recTab.Height - 4);
+            a.Graphics.DrawString(tabName, fntTab, bshFore, recTab, sftTab);
+        }
+
         private void CreateTabControl()
         {
             int width = this.Size.Width - 40;
-            int height = this.Size.Height - 200;
+            int height = this.Size.Height - 220;
             
-            tabControl.Location = new System.Drawing.Point(10, 100);
-            //tabControl.Name = "tabControl1";
-            tabControl.SelectedIndex = 0; //Eventuell Einstellungen speichern
+            tabControl.Location = new System.Drawing.Point(10, 120);
             tabControl.Size = new System.Drawing.Size(width, height);
-            //tabControl.TabIndex = 1;            
-            tabControl.Font = new Font("Arial", 12, FontStyle.Bold);            
-            tabControl.Controls.Add(CreateTabPage("Web"));
-            tabControl.Controls.Add(CreateTabPage("Reiter"));
+            tabControl.Font = new Font("Arial", 14, FontStyle.Bold);
             this.Controls.Add(tabControl);
 
-            var x = tabControl.Size;
+            tabControl.DrawItem += (s, a) =>
+            {
+                ColorActiveTabPage(s, a);
+            };
+
+            sizeTabContorlWidth = tabControl.Size.Width;
+            sizeTabContorlHeight = tabControl.Size.Height;
         }
 
-        private TabPage CreateTabPage(string text)
+        private TabPage CreateTabPage(int index, List<BasicButton> listOfButtons, string nameOfTab)
         {
             TabPage newTabPage = new TabPage();
             newTabPage.Location = new System.Drawing.Point(0, 0);
-            //newTabPage.Name = name;
-            //newTabPage.Padding = new System.Windows.Forms.Padding(0);            
-            //newTabPage.Size = new System.Drawing.Size(100, 30);
-            newTabPage.TabIndex = 0;
-            newTabPage.Text = text;
-            newTabPage.UseVisualStyleBackColor = true;
-            newTabPage.Controls.Add(CreateButton());
+            newTabPage.Text = nameOfTab;
+            newTabPage.UseVisualStyleBackColor = true;            
+            newTabPage.Padding = new System.Windows.Forms.Padding(3);
+            newTabPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+
+            for (int i = 0; i < listOfButtons.Count; i++)
+            {              
+                newTabPage.Controls.Add(CreateButton(index, i, listOfButtons[i]));                
+            }
 
             tabPages.Add(newTabPage);
 
             return newTabPage;
         }
 
-        private Button CreateButton()
+        // All buttons of tabcontrol have specific format "B__"index List level 1"_"index List level 2"
+        private Button CreateButton(int index1, int index2, BasicButton button )
         {
             Button newButton = new Button();
-            newButton.Location = new System.Drawing.Point(5, 5);
-            newButton.Size = new System.Drawing.Size(105, 35);
-            //newButton.TabIndex = 2;
-            //newButton.Name = "button3";
-            newButton.Text = "text";
-            newButton.UseVisualStyleBackColor = true;
-            //button.Click += new System.EventHandler(this.button2_Click);
+            newButton.Location = new System.Drawing.Point(GetButtonLocationWidth(index2), GetButtonLocationHeigth(index2));
+            newButton.Size = new System.Drawing.Size(SettingsValuesFlexible.Instance().GetButtonWidthValue, SettingsValuesFlexible.Instance().GetButtonHeightValue); 
+            newButton.Name = Dictionaries.ButtonsOfMainView["B__ BasicButton"] + index1.ToString() + "_"+ index2.ToString();
+            newButton.Text = button.GetTitle;
+            newButton.Margin = new System.Windows.Forms.Padding(3);
+            newButton.TextAlign = ContentAlignment.MiddleCenter;
+            newButton.Font = new Font("Arial", 12, FontStyle.Bold);
+            newButton.UseVisualStyleBackColor = true;            
+
+            newButton.Click += (s, a) =>
+            {
+                if (buttonClick != null)
+                {
+                    buttonClick(this, new ActiveButtonEventArgs(newButton.Name));
+                }
+            };
 
             return newButton;
+        }
+
+        private int GetButtonLocationWidth(int indexOfButton)
+        {
+            int constWidth = SettingsValuesFlexible.Instance().GetButtonWidthValue;
+            int constDistance = SettingsValuesFlexible.Instance().GetDistanceWidthValue;
+            int constStep = 1;
+
+            if(indexOfButton == 0)
+            {
+                constStep = 0;
+            }
+
+            aktualyValueWidth += (constWidth * constStep) + constDistance;
+
+            if((sizeTabContorlWidth - constDistance) < (aktualyValueWidth + constWidth))
+            {
+                aktualyValueWidth = constDistance;
+                linesOfButton += 1;
+            }           
+
+            return aktualyValueWidth;
+        }
+
+        private int GetButtonLocationHeigth(int indexOfButton)
+        {
+            if(linesOfButton == 0)
+            {
+                return (SettingsValuesFlexible.Instance().GetButtonHeightValue * linesOfButton) + SettingsValuesFlexible.Instance().GetDiscanceHeightValue;
+            }
+            else
+            {
+                return (SettingsValuesFlexible.Instance().GetButtonHeightValue * linesOfButton) + (SettingsValuesFlexible.Instance().GetDiscanceHeightValue * 2);
+            }
         }
 
         #endregion
@@ -157,11 +258,6 @@ namespace FAST
         {
             MaximizeWindow();
         }
-
-        #endregion
-
-        #region // Form events
-
 
         #endregion
 
@@ -201,6 +297,25 @@ namespace FAST
                     await Task.Delay(15);
                 }
             }, ct);
+        }
+
+        #endregion
+
+        #region // Events form
+
+        private void ShowTabControl_View(object sender, EventArgs e)
+        {
+            if (ShowTabControl != null) ShowTabControl(this, EventArgs.Empty);
+        }
+
+        private void ButtonCreateNewTab_Click(object sender, EventArgs e)
+        {
+            if (CreateNewTab != null) CreateNewTab(this, EventArgs.Empty);
+        }
+
+        private void ButtonCreateNewButton_Click(object sender, EventArgs e)
+        {
+            if (CreateNewButton != null) CreateNewButton(this, EventArgs.Empty);
         }
 
         #endregion

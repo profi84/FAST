@@ -23,6 +23,7 @@ namespace FAST
             this.mainView = mainView;
 
             CheckConfigFiles();
+            //ShowButtonsOnMainView();
         }
 
         #region // Variables    
@@ -58,6 +59,24 @@ namespace FAST
         private void SubscribeEventsFromMainView()
         {            
             mainView.buttonClick += new EventHandler<ActiveButtonEventArgs>(BasicButtonsMainView_Click);
+            mainView.CreateNewTab += new EventHandler(CreateNewTabMainView_Click);
+            mainView.CreateNewButton += new EventHandler(CreateNewButtonMainView_Click);
+            mainView.ShowTabControl += new EventHandler(ShowTabControlOnMainView_Event);
+        }
+
+        private void ShowTabControlOnMainView_Event(object sender, EventArgs e)
+        {
+            ShowButtonsOnMainView();
+        }
+
+        private void CreateNewButtonMainView_Click(object sender, EventArgs e)
+        {
+            CreateNewButtonForm();
+        }
+
+        private void CreateNewTabMainView_Click(object sender, EventArgs e)
+        {
+            CreateNewTab();
         }
 
         private void ImportTabsAndButtons()
@@ -65,8 +84,14 @@ namespace FAST
             listOfTabs.Clear();
             listOfButtons.Clear();
 
-            listOfTabs = new ReadDB().GetListOfTabs();
-            listOfButtons = new ReadDB().GetListOfButtons();
+            try
+            {
+                listOfTabs = new ReadDB().GetListOfTabs();
+                listOfButtons = new ReadDB().GetListOfButtons();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         #endregion
@@ -80,32 +105,13 @@ namespace FAST
         {     
             if (eventParam.ActiveButtonName.Contains(Dictionaries.ButtonsOfMainView["B__ BasicButton"]) && eventParam.IndexListOne != -1)
             {
+                new ExecutionOfButtons(listOfButtons[eventParam.IndexListOne][eventParam.IndexListTwo]);
+            }                 
+        }
 
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonCreateNewTab"])
-            {
-                CreateNewTab();
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonCreateNewButton"])
-            {
-                CreateNewButtonForm();
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonRemoveTab"])
-            {
-
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonRemoveButton"])
-            {
-
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonSortTabs"])
-            {
-
-            }
-            else if (eventParam.ActiveButtonName == Dictionaries.ButtonsOfMainView["ButtonSortButtons"])
-            {
-
-            }            
+        private void ShowButtonsOnMainView()
+        {
+            mainView.ShowButtonsOnView(listOfButtons, listOfTabs);
         }
 
         #region // Events formsNewTab
@@ -128,6 +134,8 @@ namespace FAST
                 WriteDB writeDB = new WriteDB();
                 writeDB.SaveTabs(listOfTabs);
                 writeDB.SaveButtons(listOfButtons);
+
+                ShowButtonsOnMainView();
 
                 createNewTabForm.Close();
             }
@@ -175,6 +183,8 @@ namespace FAST
 
             WriteDB writeDB = new WriteDB();
             writeDB.SaveButtons(listOfButtons);
+
+            ShowButtonsOnMainView();
 
             createNewButtonForm.Close();
         }
