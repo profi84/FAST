@@ -47,7 +47,6 @@ namespace FAST
 
             SetMaxSizeOfWindow();
             CheckKeyCombination();
-            ShowTabControl_View(this, new EventArgs());
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
         }
 
@@ -89,6 +88,7 @@ namespace FAST
         public void MinimizeWindow()
         {
             WindowState = FormWindowState.Minimized;
+            this.Hide();
         }
 
         #endregion
@@ -110,7 +110,9 @@ namespace FAST
 
         private void MaximizeWindow()
         {
+            this.Show();
             WindowState = FormWindowState.Maximized;
+            ShowTabControl_View(this, new EventArgs());
         }
 
         private void ColorActiveTabPage(object sender, DrawItemEventArgs a)
@@ -244,6 +246,8 @@ namespace FAST
         {
             if (WindowState == FormWindowState.Minimized)
             {
+                this.Hide();
+
                 if (showTrayMessage)
                 {
                     NotifyIcon.BalloonTipTitle = "Fast All Start Tool";
