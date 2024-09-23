@@ -3,6 +3,7 @@ using FAST.Data;
 using FAST.MessageBoxes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace FAST.Models
 
         private void StartProcess(StartFileWithProgramButton startFileWithProgramButton)
         {
-
+            Process.Start(startFileWithProgramButton.GetPathOfFile);
         }
     }
 }

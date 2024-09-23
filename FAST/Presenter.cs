@@ -23,7 +23,6 @@ namespace FAST
             this.mainView = mainView;
 
             CheckConfigFiles();
-            //ShowButtonsOnMainView();
         }
 
         #region // Variables    
@@ -62,6 +61,13 @@ namespace FAST
             mainView.CreateNewTab += new EventHandler(CreateNewTabMainView_Click);
             mainView.CreateNewButton += new EventHandler(CreateNewButtonMainView_Click);
             mainView.ShowTabControl += new EventHandler(ShowTabControlOnMainView_Event);
+            mainView.ToolStripMenuSettings += new EventHandler(CreateNewFormSettings_Event);
+        }
+
+        private void CreateNewFormSettings_Event(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
         }
 
         private void ShowTabControlOnMainView_Event(object sender, EventArgs e)
@@ -90,8 +96,7 @@ namespace FAST
                 listOfButtons = new ReadDB().GetListOfButtons();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         #endregion
@@ -106,6 +111,7 @@ namespace FAST
             if (eventParam.ActiveButtonName.Contains(Dictionaries.ButtonsOfMainView["B__ BasicButton"]) && eventParam.IndexListOne != -1)
             {
                 new ExecutionOfButtons(listOfButtons[eventParam.IndexListOne][eventParam.IndexListTwo]);
+                mainView.MinimizeWindow();
             }                 
         }
 

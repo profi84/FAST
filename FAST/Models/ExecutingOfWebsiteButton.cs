@@ -3,6 +3,8 @@ using FAST.Data;
 using FAST.MessageBoxes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +28,15 @@ namespace FAST.Models
 
         private void StartProcess(StartWebsiteButton startWebsiteButton)
         {
-
+            try
+            {
+                Process.Start(startWebsiteButton.GetAddressOfWebsite);
+            }
+            catch
+            {
+                MessageBoxCollection.Instance().ShowInfoMessageBox("Inhalte des Lesezeichens sind nicht korrekt. Bitte überprügen, oder erneut anlegen!",
+                   "Falsche Daten!");
+            }
         }
     }
 }

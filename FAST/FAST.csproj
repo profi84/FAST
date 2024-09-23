@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ExecutingOfExplorerButton.cs" />
     <Compile Include="Models\ExecutingOfProgramButton.cs" />
     <Compile Include="Models\ExecutingOfWebsiteButton.cs" />
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateNewTabForm.resx">
       <DependentUpon>CreateNewTabForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

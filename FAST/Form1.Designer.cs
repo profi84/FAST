@@ -39,10 +39,12 @@
             this.ButtonRemoveButton = new System.Windows.Forms.Button();
             this.ButtonSortTabs = new System.Windows.Forms.Button();
             this.ButtonSortButtons = new System.Windows.Forms.Button();
-            this.contextMenuMainForm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuStripMainView = new System.Windows.Forms.MenuStrip();
+            this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beendenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuMainView.SuspendLayout();
-            this.contextMenuMainForm.SuspendLayout();
+            this.menuStripMainView.SuspendLayout();
             this.SuspendLayout();
             // 
             // NotifyIcon
@@ -127,41 +129,65 @@
             this.ButtonSortButtons.Text = "Knopf einordnen";
             this.ButtonSortButtons.UseVisualStyleBackColor = true;
             // 
-            // contextMenuMainForm
+            // menuStripMainView
             // 
-            this.contextMenuMainForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.einstellungenToolStripMenuItem});
-            this.contextMenuMainForm.Name = "contextMenuMainForm";
-            this.contextMenuMainForm.Size = new System.Drawing.Size(146, 26);
+            this.menuStripMainView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateiToolStripMenuItem});
+            this.menuStripMainView.Location = new System.Drawing.Point(0, 0);
+            this.menuStripMainView.Name = "menuStripMainView";
+            this.menuStripMainView.Size = new System.Drawing.Size(1350, 24);
+            this.menuStripMainView.TabIndex = 7;
+            this.menuStripMainView.Text = "menuStrip1";
+            // 
+            // dateiToolStripMenuItem
+            // 
+            this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.einstellungenToolStripMenuItem,
+            this.beendenToolStripMenuItem1});
+            this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
+            this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
+            // 
+            // beendenToolStripMenuItem1
+            // 
+            this.beendenToolStripMenuItem1.Name = "beendenToolStripMenuItem1";
+            this.beendenToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.beendenToolStripMenuItem1.Text = "Beenden";
+            this.beendenToolStripMenuItem1.Click += new System.EventHandler(this.beendenToolStripMenuItem1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 629);
-            this.ContextMenuStrip = this.contextMenuMainForm;
+            this.Controls.Add(this.menuStripMainView);
             this.Controls.Add(this.ButtonSortButtons);
             this.Controls.Add(this.ButtonSortTabs);
             this.Controls.Add(this.ButtonRemoveButton);
             this.Controls.Add(this.ButtonRemoveTab);
             this.Controls.Add(this.ButtonCreateNewButton);
             this.Controls.Add(this.ButtonCreateNewTab);
+            this.MainMenuStrip = this.menuStripMainView;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.Text = "FAST - Fast All Start Tool. Maximieren durch \"STRG\" + \"0\"";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuMainView.ResumeLayout(false);
-            this.contextMenuMainForm.ResumeLayout(false);
+            this.menuStripMainView.ResumeLayout(false);
+            this.menuStripMainView.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -176,8 +202,10 @@
         private System.Windows.Forms.Button ButtonRemoveButton;
         private System.Windows.Forms.Button ButtonSortTabs;
         private System.Windows.Forms.Button ButtonSortButtons;
-        private System.Windows.Forms.ContextMenuStrip contextMenuMainForm;
+        private System.Windows.Forms.MenuStrip menuStripMainView;
+        private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem1;
     }
 }
 

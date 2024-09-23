@@ -45,8 +45,7 @@ namespace FAST
             ButtonCreateNewTab.Click += new EventHandler(ButtonCreateNewTab_Click);
             ButtonCreateNewButton.Click += new EventHandler(ButtonCreateNewButton_Click);
 
-            MaximizeWindow();
-            CreateTabControl();
+            SetMaxSizeOfWindow();
             CheckKeyCombination();
             ShowTabControl_View(this, new EventArgs());
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -58,6 +57,7 @@ namespace FAST
         public event EventHandler CreateNewTab;
         public event EventHandler CreateNewButton;
         public event EventHandler ShowTabControl;
+        public event EventHandler ToolStripMenuSettings;
         private bool ifNotCloseForm = true;
         private bool showTrayMessage = true;
         TabControl tabControl = new TabControl();
@@ -74,6 +74,7 @@ namespace FAST
 
         public void ShowButtonsOnView(List<List<BasicButton>> listOfButtons, List<string>listOfTabs)
         {
+            CreateTabControl();
             RemoveButtonsFromView();
 
             for (int i = 0; i < listOfButtons.Count; i++)
@@ -83,6 +84,11 @@ namespace FAST
 
                 tabControl.Controls.Add(CreateTabPage(i, listOfButtons[i], listOfTabs[i]));
             }
+        }
+
+        public void MinimizeWindow()
+        {
+            WindowState = FormWindowState.Minimized;
         }
 
         #endregion
@@ -137,11 +143,17 @@ namespace FAST
         private void CreateTabControl()
         {
             int width = this.Size.Width - 40;
-            int height = this.Size.Height - 220;
-            
+            int height;
+
+            if (WindowState == FormWindowState.Maximized)
+                height = this.Size.Height - 220;
+            else
+                height = this.Size.Height - 175;
+
             tabControl.Location = new System.Drawing.Point(10, 120);
             tabControl.Size = new System.Drawing.Size(width, height);
             tabControl.Font = new Font("Arial", 14, FontStyle.Bold);
+            tabControl.Multiline = true;
             this.Controls.Add(tabControl);
 
             tabControl.DrawItem += (s, a) =>
@@ -161,6 +173,7 @@ namespace FAST
             newTabPage.UseVisualStyleBackColor = true;            
             newTabPage.Padding = new System.Windows.Forms.Padding(3);
             newTabPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            newTabPage.AutoScroll = true;
 
             for (int i = 0; i < listOfButtons.Count; i++)
             {              
@@ -176,7 +189,7 @@ namespace FAST
         private Button CreateButton(int index1, int index2, BasicButton button )
         {
             Button newButton = new Button();
-            newButton.Location = new System.Drawing.Point(GetButtonLocationWidth(index2), GetButtonLocationHeigth(index2));
+            newButton.Location = new System.Drawing.Point(GetButtonLocationWidth(index2), GetButtonLocationHeigth());
             newButton.Size = new System.Drawing.Size(SettingsValuesFlexible.Instance().GetButtonWidthValue, SettingsValuesFlexible.Instance().GetButtonHeightValue); 
             newButton.Name = Dictionaries.ButtonsOfMainView["B__ BasicButton"] + index1.ToString() + "_"+ index2.ToString();
             newButton.Text = button.GetTitle;
@@ -202,32 +215,25 @@ namespace FAST
             int constDistance = SettingsValuesFlexible.Instance().GetDistanceWidthValue;
             int constStep = 1;
 
-            if(indexOfButton == 0)
+            if (indexOfButton == 0)
             {
                 constStep = 0;
             }
 
-            aktualyValueWidth += (constWidth * constStep) + constDistance;
+            aktualyValueWidth += (constWidth * constStep) + (constDistance);
 
             if((sizeTabContorlWidth - constDistance) < (aktualyValueWidth + constWidth))
             {
                 aktualyValueWidth = constDistance;
                 linesOfButton += 1;
-            }           
+            }
 
             return aktualyValueWidth;
         }
 
-        private int GetButtonLocationHeigth(int indexOfButton)
+        private int GetButtonLocationHeigth()
         {
-            if(linesOfButton == 0)
-            {
-                return (SettingsValuesFlexible.Instance().GetButtonHeightValue * linesOfButton) + SettingsValuesFlexible.Instance().GetDiscanceHeightValue;
-            }
-            else
-            {
-                return (SettingsValuesFlexible.Instance().GetButtonHeightValue * linesOfButton) + (SettingsValuesFlexible.Instance().GetDiscanceHeightValue * 2);
-            }
+            return (SettingsValuesFlexible.Instance().GetButtonHeightValue * linesOfButton) + (SettingsValuesFlexible.Instance().GetDiscanceHeightValue * (linesOfButton + 1));
         }
 
         #endregion
@@ -246,7 +252,11 @@ namespace FAST
                     NotifyIcon.ShowBalloonTip(50);
                     showTrayMessage = false;
                 }
-            }            
+            }
+            else
+            {
+                ShowTabControl_View(this, new EventArgs());
+            }
         }
 
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -319,5 +329,16 @@ namespace FAST
         }
 
         #endregion
+
+        private void beendenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ifNotCloseForm = false;
+            this.Close();
+        }
+
+        private void einstellungenToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            if (ToolStripMenuSettings != null) ToolStripMenuSettings(this, EventArgs.Empty);
+        }
     }
 }
