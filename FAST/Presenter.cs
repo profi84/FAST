@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using FAST.Settings;
 
 namespace FAST
 {
@@ -30,6 +31,7 @@ namespace FAST
         private Form1 mainView;
         CreateNewTabForm createNewTabForm;
         CreateNewButtonForm createNewButtonForm;
+        SettingsForm settingsForm;
 
         private List<string> listOfTabs = new List<string>();
         private List<List<BasicButton>> listOfButtons = new List<List<BasicButton>>();
@@ -66,8 +68,22 @@ namespace FAST
 
         private void CreateNewFormSettings_Event(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm();
-            settingsForm.Show();
+            settingsForm = new SettingsForm();
+            settingsForm.ButtonOKSetting += new EventHandler(SettingsFormOK_Click);
+            settingsForm.ButtonCancelSetting += new EventHandler(SettingsFormCancel_Click);
+            settingsForm.ShowDialog();
+            
+        }
+
+        private void SettingsFormCancel_Click(object sender, EventArgs e)
+        {            
+            settingsForm.Close();
+        }
+
+        private void SettingsFormOK_Click(object sender, EventArgs e)
+        {
+            ShowButtonsOnMainView();
+            settingsForm.Close();
         }
 
         private void ShowTabControlOnMainView_Event(object sender, EventArgs e)
@@ -111,7 +127,9 @@ namespace FAST
             if (eventParam.ActiveButtonName.Contains(Dictionaries.ButtonsOfMainView["B__ BasicButton"]) && eventParam.IndexListOne != -1)
             {
                 new ExecutionOfButtons(listOfButtons[eventParam.IndexListOne][eventParam.IndexListTwo]);
-                mainView.MinimizeWindow();
+
+                if(SettingsValuesFlexible.Instance().GetMinimizeFormAfterButtonClick == true)
+                    mainView.MinimizeWindow();
             }                 
         }
 

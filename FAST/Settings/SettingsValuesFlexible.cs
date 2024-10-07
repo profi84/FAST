@@ -74,6 +74,12 @@ namespace FAST.Settings
             set { jsonSettingNested.buttonHeightValue = value; }
         }
 
+        public bool GetMinimizeFormAfterButtonClick
+        {
+            get { return jsonSettingNested.MinimizeFormAfterButtonClick; }
+            set { jsonSettingNested.MinimizeFormAfterButtonClick = value; }
+        }
+
         #endregion
 
         #region Input Output Settings as Json File
@@ -102,10 +108,11 @@ namespace FAST.Settings
 
         class JsonSettingNested
         {
-            public int buttonDistanceWidthValue = 15;
-            public int buttonDiscanceHeightValue = 15;
+            public int buttonDistanceWidthValue = 10;
+            public int buttonDiscanceHeightValue = 10;
             public int buttonWidthValue = 170;
             public int buttonHeightValue = 50;
+            public bool MinimizeFormAfterButtonClick = true;
         }
 
         #endregion

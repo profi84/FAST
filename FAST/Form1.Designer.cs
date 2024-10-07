@@ -71,43 +71,55 @@
             // 
             // ButtonCreateNewTab
             // 
+            this.ButtonCreateNewTab.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ButtonCreateNewTab.FlatAppearance.BorderSize = 0;
+            this.ButtonCreateNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonCreateNewTab.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
             this.ButtonCreateNewTab.Location = new System.Drawing.Point(10, 35);
             this.ButtonCreateNewTab.Name = "ButtonCreateNewTab";
             this.ButtonCreateNewTab.Size = new System.Drawing.Size(140, 45);
             this.ButtonCreateNewTab.TabIndex = 1;
             this.ButtonCreateNewTab.Text = "Reiter erstellen";
-            this.ButtonCreateNewTab.UseVisualStyleBackColor = true;
+            this.ButtonCreateNewTab.UseVisualStyleBackColor = false;
             // 
             // ButtonCreateNewButton
             // 
+            this.ButtonCreateNewButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ButtonCreateNewButton.FlatAppearance.BorderSize = 0;
+            this.ButtonCreateNewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonCreateNewButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
             this.ButtonCreateNewButton.Location = new System.Drawing.Point(160, 35);
             this.ButtonCreateNewButton.Name = "ButtonCreateNewButton";
             this.ButtonCreateNewButton.Size = new System.Drawing.Size(140, 45);
             this.ButtonCreateNewButton.TabIndex = 2;
             this.ButtonCreateNewButton.Text = "Knopf erstellen";
-            this.ButtonCreateNewButton.UseVisualStyleBackColor = true;
+            this.ButtonCreateNewButton.UseVisualStyleBackColor = false;
             // 
             // ButtonRemoveTab
             // 
+            this.ButtonRemoveTab.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ButtonRemoveTab.FlatAppearance.BorderSize = 0;
+            this.ButtonRemoveTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonRemoveTab.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
             this.ButtonRemoveTab.Location = new System.Drawing.Point(310, 35);
             this.ButtonRemoveTab.Name = "ButtonRemoveTab";
             this.ButtonRemoveTab.Size = new System.Drawing.Size(140, 45);
             this.ButtonRemoveTab.TabIndex = 3;
             this.ButtonRemoveTab.Text = "Reiter löschen";
-            this.ButtonRemoveTab.UseVisualStyleBackColor = true;
+            this.ButtonRemoveTab.UseVisualStyleBackColor = false;
             // 
             // ButtonRemoveButton
             // 
+            this.ButtonRemoveButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ButtonRemoveButton.FlatAppearance.BorderSize = 0;
+            this.ButtonRemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonRemoveButton.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
             this.ButtonRemoveButton.Location = new System.Drawing.Point(460, 35);
             this.ButtonRemoveButton.Name = "ButtonRemoveButton";
             this.ButtonRemoveButton.Size = new System.Drawing.Size(140, 45);
             this.ButtonRemoveButton.TabIndex = 4;
             this.ButtonRemoveButton.Text = "Knopflöschen";
-            this.ButtonRemoveButton.UseVisualStyleBackColor = true;
+            this.ButtonRemoveButton.UseVisualStyleBackColor = false;
             // 
             // ButtonSortTabs
             // 
@@ -175,8 +187,6 @@
             this.Controls.Add(this.ButtonCreateNewButton);
             this.Controls.Add(this.ButtonCreateNewTab);
             this.MainMenuStrip = this.menuStripMainView;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form1";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
