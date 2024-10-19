@@ -48,6 +48,7 @@ namespace FAST
             SetMaxSizeOfWindow();
             CheckKeyCombination();
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            showTrayMessage = SettingsValuesFlexible.Instance().GetShowTrayMessageFlag;
         }
 
         #region // Variables

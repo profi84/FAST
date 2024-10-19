@@ -39,6 +39,7 @@
             this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.CheckBoxMinimizeAfterButtonClick = new System.Windows.Forms.CheckBox();
+            this.CheckFlagShowTrayMessage = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NumDistanceWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumDistanceHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumButtonWidth)).BeginInit();
@@ -204,18 +205,31 @@
             // CheckBoxMinimizeAfterButtonClick
             // 
             this.CheckBoxMinimizeAfterButtonClick.AutoSize = true;
-            this.CheckBoxMinimizeAfterButtonClick.Location = new System.Drawing.Point(15, 205);
+            this.CheckBoxMinimizeAfterButtonClick.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.CheckBoxMinimizeAfterButtonClick.Location = new System.Drawing.Point(15, 190);
             this.CheckBoxMinimizeAfterButtonClick.Name = "CheckBoxMinimizeAfterButtonClick";
-            this.CheckBoxMinimizeAfterButtonClick.Size = new System.Drawing.Size(189, 17);
+            this.CheckBoxMinimizeAfterButtonClick.Size = new System.Drawing.Size(209, 20);
             this.CheckBoxMinimizeAfterButtonClick.TabIndex = 4;
             this.CheckBoxMinimizeAfterButtonClick.Text = "Minimieren, nach dem Button Click";
             this.CheckBoxMinimizeAfterButtonClick.UseVisualStyleBackColor = true;
+            // 
+            // CheckFlagShowTrayMessage
+            // 
+            this.CheckFlagShowTrayMessage.AutoSize = true;
+            this.CheckFlagShowTrayMessage.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            this.CheckFlagShowTrayMessage.Location = new System.Drawing.Point(15, 220);
+            this.CheckFlagShowTrayMessage.Name = "CheckFlagShowTrayMessage";
+            this.CheckFlagShowTrayMessage.Size = new System.Drawing.Size(237, 20);
+            this.CheckFlagShowTrayMessage.TabIndex = 5;
+            this.CheckFlagShowTrayMessage.Text = "Zeige beim 1. Minimierung Tray Message";
+            this.CheckFlagShowTrayMessage.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 329);
+            this.Controls.Add(this.CheckFlagShowTrayMessage);
             this.Controls.Add(this.CheckBoxMinimizeAfterButtonClick);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonOK);
@@ -252,5 +266,6 @@
         private System.Windows.Forms.Button ButtonOK;
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.CheckBox CheckBoxMinimizeAfterButtonClick;
+        private System.Windows.Forms.CheckBox CheckFlagShowTrayMessage;
     }
 }

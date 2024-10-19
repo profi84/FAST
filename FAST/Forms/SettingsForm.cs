@@ -35,6 +35,11 @@ namespace FAST.Forms
                 SettingsValuesFlexible.Instance().GetMinimizeFormAfterButtonClick = true;
             else
                 SettingsValuesFlexible.Instance().GetMinimizeFormAfterButtonClick = false;
+
+            if (CheckFlagShowTrayMessage.Checked == true)
+                SettingsValuesFlexible.Instance().GetShowTrayMessageFlag = true;
+            else
+                SettingsValuesFlexible.Instance().GetShowTrayMessageFlag = false;
         }
 
         public event EventHandler ButtonOKSetting;
@@ -51,6 +56,11 @@ namespace FAST.Forms
                 CheckBoxMinimizeAfterButtonClick.Checked = true;
             else
                 CheckBoxMinimizeAfterButtonClick.Checked = false;
+
+            if (SettingsValuesFlexible.Instance().GetShowTrayMessageFlag == true)
+                CheckFlagShowTrayMessage.Checked = true;
+            else
+                CheckFlagShowTrayMessage.Checked = false;
         }
 
         private void ButtonOK_Click(object sender, EventArgs e)

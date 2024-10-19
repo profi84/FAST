@@ -76,8 +76,14 @@ namespace FAST.Settings
 
         public bool GetMinimizeFormAfterButtonClick
         {
-            get { return jsonSettingNested.MinimizeFormAfterButtonClick; }
-            set { jsonSettingNested.MinimizeFormAfterButtonClick = value; }
+            get { return jsonSettingNested.minimizeFormAfterButtonClick; }
+            set { jsonSettingNested.minimizeFormAfterButtonClick = value; }
+        }
+
+        public bool GetShowTrayMessageFlag
+        {
+            get { return jsonSettingNested.showTrayMessage; }
+            set { jsonSettingNested.showTrayMessage = value; }
         }
 
         #endregion
@@ -112,7 +118,8 @@ namespace FAST.Settings
             public int buttonDiscanceHeightValue = 10;
             public int buttonWidthValue = 170;
             public int buttonHeightValue = 50;
-            public bool MinimizeFormAfterButtonClick = true;
+            public bool minimizeFormAfterButtonClick = true;
+            public bool showTrayMessage = true;
         }
 
         #endregion
