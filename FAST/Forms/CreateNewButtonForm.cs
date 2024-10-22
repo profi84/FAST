@@ -58,7 +58,11 @@ namespace FAST.Forms
                     GetDescription = TextBoxDescription.Text.Trim(),
                     GetTabName = ComboBoxTabs.Text.Trim(),
                     GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
-                    GetPathOfFile = TextBoxPathFile.Text.Trim()
+                    GetPathOfFile = TextBoxPathFile.Text.Trim(),
+                    GetIfNotDefaultProgram = CheckIfNotDefaultProgram.Checked,
+                    GetPathProgramIfNotDefault = TextBoxPathProgramIfNotDefault.Text.Trim(),
+                    GetIfNoFileChoosed = CheckIfNoFileChoosed.Checked,
+                    GetPathOfFolderIfNoFileChoosed = TextPathOfFolderIfNoFileChoosed.Text.Trim()
                 };
             }
             else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartWebsiteButton"])
@@ -70,6 +74,8 @@ namespace FAST.Forms
                     GetTabName = ComboBoxTabs.Text.Trim(),
                     GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
                     GetAddressOfWebsite = TextBoxAddressOfWebsite.Text.Trim(),
+                    GetIfNotDefaultBrowser = CheckIfNotDefaultBrowser.Checked,
+                    GetPathOfBrowserIfNotDefault = TextBoxlabelPathOfBrowserIfNotDefault.Text.Trim()
                 };
             }
             else
@@ -187,6 +193,12 @@ namespace FAST.Forms
 
         Label labelPathFile = new Label();
         TextBox TextBoxPathFile = new TextBox();
+        CheckBox CheckIfNotDefaultProgram = new CheckBox();
+        Label labelPathProgramIfNotDefault = new Label();
+        TextBox TextBoxPathProgramIfNotDefault = new TextBox();
+        CheckBox CheckIfNoFileChoosed = new CheckBox();
+        Label labelPathOfFolderIfNoFileChoosed = new Label();
+        TextBox TextPathOfFolderIfNoFileChoosed = new TextBox();
 
         #endregion
 
@@ -194,6 +206,9 @@ namespace FAST.Forms
 
         Label labelAddressOfWebsite = new Label();
         TextBox TextBoxAddressOfWebsite = new TextBox();
+        CheckBox CheckIfNotDefaultBrowser = new CheckBox();
+        Label labelPathOfBrowserIfNotDefault = new Label();
+        TextBox TextBoxlabelPathOfBrowserIfNotDefault = new TextBox();
 
         #endregion
 
@@ -214,26 +229,68 @@ namespace FAST.Forms
             TextBoxPathExplorer.Location = new System.Drawing.Point(30, 205);
             TextBoxPathExplorer.Name = "TextBoxPathExplorer";
             TextBoxPathExplorer.Size = new System.Drawing.Size(645, 29);
-            this.Controls.Add(TextBoxPathExplorer);
+            Controls.Add(TextBoxPathExplorer);
         }
 
         private void CreateProgramButtonView()
-        {
-            labelPathFile = new System.Windows.Forms.Label();
+        {            
             labelPathFile.AutoSize = true;
             labelPathFile.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelPathFile.Location = new System.Drawing.Point(30, 180);
             labelPathFile.Name = "labelPathFile";
-            labelPathFile.Text = "Bitte den Dateipfad eingeben.";
+            labelPathFile.Text = "Bitte den Dateipfad eingeben. (Start mit default Programm)";
             Controls.Add(labelPathFile);
 
-            TextBoxPathFile = new System.Windows.Forms.TextBox();
             TextBoxPathFile.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             TextBoxPathFile.Location = new System.Drawing.Point(30, 205);
             TextBoxPathFile.Name = "TextBoxPathFile";
             TextBoxPathFile.Size = new System.Drawing.Size(645, 29);
-            this.Controls.Add(TextBoxPathFile);
-        }
+            Controls.Add(TextBoxPathFile);
+
+            CheckIfNotDefaultProgram.AutoSize = true;
+            CheckIfNotDefaultProgram.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            CheckIfNotDefaultProgram.Location = new System.Drawing.Point(30, 260);
+            CheckIfNotDefaultProgram.Name = "CheckIfNotDefaultProgram";
+            CheckIfNotDefaultProgram.Text = "Wenn keine default Programm benutzt werden soll.";
+            Controls.Add(CheckIfNotDefaultProgram);
+            CheckIfNotDefaultProgram.CheckStateChanged += new EventHandler(CheckIfNotDefaultProgram_StateChange);
+
+            labelPathProgramIfNotDefault.AutoSize = true;
+            labelPathProgramIfNotDefault.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelPathProgramIfNotDefault.Location = new System.Drawing.Point(30, 285);
+            labelPathProgramIfNotDefault.Name = "labelPathProgramIfNotDefault";
+            labelPathProgramIfNotDefault.Text = "Bitte den Programm Pfad eingeben. (Exe Pfad anstatt default Programm)";
+            Controls.Add(labelPathProgramIfNotDefault);
+
+            TextBoxPathProgramIfNotDefault.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            TextBoxPathProgramIfNotDefault.Location = new System.Drawing.Point(30, 310);
+            TextBoxPathProgramIfNotDefault.Name = "TextBoxPathProgramIfNotDefault";
+            TextBoxPathProgramIfNotDefault.Size = new System.Drawing.Size(645, 29);
+            TextBoxPathProgramIfNotDefault.Enabled = false;
+            Controls.Add(TextBoxPathProgramIfNotDefault);
+
+            CheckIfNoFileChoosed.AutoSize = true;
+            CheckIfNoFileChoosed.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            CheckIfNoFileChoosed.Location = new System.Drawing.Point(30, 365);
+            CheckIfNoFileChoosed.Name = "CheckIfNoFileChoosed";
+            CheckIfNoFileChoosed.Text = "Wenn kein Datei geöfften werdne soll, sondern Ordner.";
+            Controls.Add(CheckIfNoFileChoosed);
+            CheckIfNoFileChoosed.CheckStateChanged += new EventHandler(CheckIfNoFileChoosed_StateChange);
+
+            labelPathOfFolderIfNoFileChoosed.AutoSize = true;
+            labelPathOfFolderIfNoFileChoosed.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelPathOfFolderIfNoFileChoosed.Location = new System.Drawing.Point(30, 390);
+            labelPathOfFolderIfNoFileChoosed.Name = "labelPathOfFolderIfNoFileChoosed";
+            labelPathOfFolderIfNoFileChoosed.Text = "Bitte Ordner Pfad eingeben, welcher sich dann mit Dialogfenster öffnet.";
+            Controls.Add(labelPathOfFolderIfNoFileChoosed);
+
+            TextPathOfFolderIfNoFileChoosed.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            TextPathOfFolderIfNoFileChoosed.Location = new System.Drawing.Point(30, 415);
+            TextPathOfFolderIfNoFileChoosed.Name = "TextPathOfFolderIfNoFileChoosed";
+            TextPathOfFolderIfNoFileChoosed.Size = new System.Drawing.Size(645, 29);
+            TextPathOfFolderIfNoFileChoosed.Enabled = false;
+            Controls.Add(TextPathOfFolderIfNoFileChoosed);
+        }        
 
         private void CreateWebsiteButtonView()
         {
@@ -250,8 +307,30 @@ namespace FAST.Forms
             TextBoxAddressOfWebsite.Location = new System.Drawing.Point(30, 205);
             TextBoxAddressOfWebsite.Name = "TextBoxAddressOfWebsite";
             TextBoxAddressOfWebsite.Size = new System.Drawing.Size(645, 29);
-            this.Controls.Add(TextBoxAddressOfWebsite);
-        }
+            Controls.Add(TextBoxAddressOfWebsite);
+
+            CheckIfNotDefaultBrowser.AutoSize = true;
+            CheckIfNotDefaultBrowser.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
+            CheckIfNotDefaultBrowser.Location = new System.Drawing.Point(30, 260);
+            CheckIfNotDefaultBrowser.Name = "CheckIfNotDefaultBrowser";
+            CheckIfNotDefaultBrowser.Text = "Wenn kein default Browser benutzt werden soll.";
+            Controls.Add(CheckIfNotDefaultBrowser);
+            CheckIfNotDefaultBrowser.CheckStateChanged += new EventHandler(CheckIfNotDefaultBrowser_ChangeState);
+
+            labelPathOfBrowserIfNotDefault.AutoSize = true;
+            labelPathOfBrowserIfNotDefault.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelPathOfBrowserIfNotDefault.Location = new System.Drawing.Point(30, 285);
+            labelPathOfBrowserIfNotDefault.Name = "labelPathOfBrowserIfNotDefault";
+            labelPathOfBrowserIfNotDefault.Text = "Bitte den Browser Pfad eingeben. (Exe Pfad anstatt default Browser)";
+            Controls.Add(labelPathOfBrowserIfNotDefault);
+
+            TextBoxlabelPathOfBrowserIfNotDefault.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            TextBoxlabelPathOfBrowserIfNotDefault.Location = new System.Drawing.Point(30, 310);
+            TextBoxlabelPathOfBrowserIfNotDefault.Name = "TextBoxlabelPathOfBrowserIfNotDefault";
+            TextBoxlabelPathOfBrowserIfNotDefault.Size = new System.Drawing.Size(645, 29);
+            TextBoxlabelPathOfBrowserIfNotDefault.Enabled = false;
+            Controls.Add(TextBoxlabelPathOfBrowserIfNotDefault);
+        }        
 
         private void RemoveAllButtonsView()
         {
@@ -270,13 +349,68 @@ namespace FAST.Forms
         {
             this.Controls.Remove(labelPathFile);
             this.Controls.Remove(TextBoxPathFile);
+            this.Controls.Remove(CheckIfNotDefaultProgram);
+            this.Controls.Remove(labelPathProgramIfNotDefault);
+            this.Controls.Remove(TextBoxPathProgramIfNotDefault);
+            this.Controls.Remove(CheckIfNoFileChoosed);
+            this.Controls.Remove(labelPathOfFolderIfNoFileChoosed);
+            this.Controls.Remove(TextPathOfFolderIfNoFileChoosed);
+            CheckIfNoFileChoosed.CheckStateChanged -= new EventHandler(CheckIfNoFileChoosed_StateChange);
+            CheckIfNotDefaultProgram.CheckStateChanged -= new EventHandler(CheckIfNotDefaultProgram_StateChange);
         }
 
         private void RemoveWebsiteButtonView()
         {
             this.Controls.Remove(labelAddressOfWebsite);
             this.Controls.Remove(TextBoxAddressOfWebsite);
+            this.Controls.Remove(CheckIfNotDefaultBrowser);
+            this.Controls.Remove(labelPathOfBrowserIfNotDefault);
+            this.Controls.Remove(TextBoxlabelPathOfBrowserIfNotDefault);
+            CheckIfNotDefaultBrowser.CheckStateChanged -= new EventHandler(CheckIfNotDefaultBrowser_ChangeState);
         }
+
+        private void CheckIfNoFileChoosed_StateChange(object sender, EventArgs e)
+        {
+            if (CheckIfNoFileChoosed.Checked == true)
+            {
+                TextPathOfFolderIfNoFileChoosed.Enabled = true;
+                TextBoxPathFile.Text = String.Empty;
+                TextBoxPathFile.Enabled = false;
+            }
+            else
+            {
+                TextBoxPathFile.Enabled = true;
+                TextPathOfFolderIfNoFileChoosed.Text = String.Empty;
+                TextPathOfFolderIfNoFileChoosed.Enabled = false;
+            }
+        }
+
+        private void CheckIfNotDefaultProgram_StateChange(object sender, EventArgs e)
+        {
+            if (CheckIfNotDefaultProgram.Checked == true)
+            {
+                TextBoxPathProgramIfNotDefault.Enabled = true;
+            }
+            else
+            {
+                TextBoxPathProgramIfNotDefault.Text = String.Empty;
+                TextBoxPathProgramIfNotDefault.Enabled = false;
+            }
+        }
+
+        private void CheckIfNotDefaultBrowser_ChangeState(object sender, EventArgs e)
+        {
+            if (CheckIfNotDefaultBrowser.Checked == true)
+            {
+                TextBoxlabelPathOfBrowserIfNotDefault.Enabled = true;
+            }
+            else
+            {
+                TextBoxlabelPathOfBrowserIfNotDefault.Text = string.Empty;
+                TextBoxlabelPathOfBrowserIfNotDefault.Enabled = false;
+            }
+        }
+
         #endregion
     }
 }
