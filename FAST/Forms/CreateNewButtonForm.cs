@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FAST.Properties;
 using System.Web;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.Security.Policy;
 
 namespace FAST.Forms
 {
@@ -23,6 +26,7 @@ namespace FAST.Forms
             ShowComboBoxTabs(listOfTabs);
             ShowComboBoxKindOfButton();
             this.listOfTabs = listOfTabs;
+            CheckBrowsers();            
         }
 
         private void CreateNewButtonForm_Load(object sender, EventArgs e)
@@ -33,6 +37,7 @@ namespace FAST.Forms
         List<string> listOfTabs = new List<string>();   
         public event EventHandler CreateNewButtonFormOK;
         public event EventHandler CreateNewButtonFormCancel;
+        Dictionary<string, string> Browsers = new Dictionary<string, string>();
 
         #region // Public methods
 
@@ -67,6 +72,13 @@ namespace FAST.Forms
             }
             else if (ComboBoxKindOfButton.Text == Dictionaries.KindOfButtonsNamesEnGe["StartWebsiteButton"])
             {
+                string tempPathOfBrowserIfNotDefault;
+
+                if (CheckIfNotDefaultBrowser.Checked == true)
+                    tempPathOfBrowserIfNotDefault = Browsers[ComboBoxPathOfBrowserIfNotDefault.Text.Trim()];
+                else
+                    tempPathOfBrowserIfNotDefault = String.Empty;
+
                 return new StartWebsiteButton()
                 {
                     GetTitle = TextBoxTitle.Text.Trim(),
@@ -74,8 +86,8 @@ namespace FAST.Forms
                     GetTabName = ComboBoxTabs.Text.Trim(),
                     GetButtonType = Dictionaries.KindOfButtonsNamemTranslated[ComboBoxKindOfButton.Text.Trim()],
                     GetAddressOfWebsite = TextBoxAddressOfWebsite.Text.Trim(),
-                    GetIfNotDefaultBrowser = CheckIfNotDefaultBrowser.Checked,
-                    GetPathOfBrowserIfNotDefault = TextBoxlabelPathOfBrowserIfNotDefault.Text.Trim()
+                    GetIfNotDefaultBrowser = CheckIfNotDefaultBrowser.Checked,                    
+                    GetPathOfBrowserIfNotDefault = tempPathOfBrowserIfNotDefault
                 };
             }
             else
@@ -208,7 +220,7 @@ namespace FAST.Forms
         TextBox TextBoxAddressOfWebsite = new TextBox();
         CheckBox CheckIfNotDefaultBrowser = new CheckBox();
         Label labelPathOfBrowserIfNotDefault = new Label();
-        TextBox TextBoxlabelPathOfBrowserIfNotDefault = new TextBox();
+        ComboBox ComboBoxPathOfBrowserIfNotDefault = new System.Windows.Forms.ComboBox();
 
         #endregion
 
@@ -324,12 +336,14 @@ namespace FAST.Forms
             labelPathOfBrowserIfNotDefault.Text = "Bitte den Browser Pfad eingeben. (Exe Pfad anstatt default Browser)";
             Controls.Add(labelPathOfBrowserIfNotDefault);
 
-            TextBoxlabelPathOfBrowserIfNotDefault.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            TextBoxlabelPathOfBrowserIfNotDefault.Location = new System.Drawing.Point(30, 310);
-            TextBoxlabelPathOfBrowserIfNotDefault.Name = "TextBoxlabelPathOfBrowserIfNotDefault";
-            TextBoxlabelPathOfBrowserIfNotDefault.Size = new System.Drawing.Size(645, 29);
-            TextBoxlabelPathOfBrowserIfNotDefault.Enabled = false;
-            Controls.Add(TextBoxlabelPathOfBrowserIfNotDefault);
+            ComboBoxPathOfBrowserIfNotDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ComboBoxPathOfBrowserIfNotDefault.Font = new System.Drawing.Font("Arial Narrow", 12.25F, System.Drawing.FontStyle.Bold);
+            ComboBoxPathOfBrowserIfNotDefault.FormattingEnabled = true;
+            ComboBoxPathOfBrowserIfNotDefault.Location = new System.Drawing.Point(30, 310);
+            ComboBoxPathOfBrowserIfNotDefault.Name = "PathOfBrowserIfNotDefault";
+            ComboBoxPathOfBrowserIfNotDefault.Size = new System.Drawing.Size(645, 29);
+            ComboBoxPathOfBrowserIfNotDefault.Enabled = false;
+            Controls.Add(ComboBoxPathOfBrowserIfNotDefault);
         }        
 
         private void RemoveAllButtonsView()
@@ -365,7 +379,7 @@ namespace FAST.Forms
             this.Controls.Remove(TextBoxAddressOfWebsite);
             this.Controls.Remove(CheckIfNotDefaultBrowser);
             this.Controls.Remove(labelPathOfBrowserIfNotDefault);
-            this.Controls.Remove(TextBoxlabelPathOfBrowserIfNotDefault);
+            this.Controls.Remove(ComboBoxPathOfBrowserIfNotDefault);
             CheckIfNotDefaultBrowser.CheckStateChanged -= new EventHandler(CheckIfNotDefaultBrowser_ChangeState);
         }
 
@@ -385,6 +399,57 @@ namespace FAST.Forms
             }
         }
 
+        private void CheckBrowsers()
+        {
+            string mainPath = @"Software\Clients\StartMenuInternet\";
+            string nameBrowser = @"\Capabilities";
+            string name = @"ApplicationName";
+            string pathBrowser = @"\shell\open\command";
+
+            try
+            {
+                using (RegistryKey userChoiceKey = Registry.LocalMachine.OpenSubKey(mainPath))
+                {
+                    var keys = userChoiceKey.GetSubKeyNames();
+
+                    foreach (var item in keys)
+                    {
+                        string keyName = mainPath + item + nameBrowser;
+                        string keyPath = mainPath + item + pathBrowser;
+
+                        string nameOfBr = "";
+                        string pathOfBr = "";
+
+                        using (RegistryKey xxx = Registry.LocalMachine.OpenSubKey(keyName))
+                        {
+                            nameOfBr = (string)xxx?.GetValue(name);
+                        }
+
+                        using (RegistryKey xxx = Registry.LocalMachine.OpenSubKey(keyPath))
+                        {
+                            pathOfBr = (string)xxx?.GetValue(null);
+                        }
+
+                        if (nameOfBr == null && pathOfBr != null)
+                        {
+                            nameOfBr = pathOfBr;
+                        }
+                        else if (pathOfBr == null)
+                        {
+                            continue;
+                        }
+
+                        Browsers.Add(nameOfBr, pathOfBr);
+                        ComboBoxPathOfBrowserIfNotDefault.Items.Add(nameOfBr);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // 
+            }
+        }
+
         private void CheckIfNotDefaultProgram_StateChange(object sender, EventArgs e)
         {
             if (CheckIfNotDefaultProgram.Checked == true)
@@ -401,13 +466,14 @@ namespace FAST.Forms
         private void CheckIfNotDefaultBrowser_ChangeState(object sender, EventArgs e)
         {
             if (CheckIfNotDefaultBrowser.Checked == true)
-            {
-                TextBoxlabelPathOfBrowserIfNotDefault.Enabled = true;
+            {   
+                ComboBoxPathOfBrowserIfNotDefault.Enabled = true;
+                ComboBoxPathOfBrowserIfNotDefault.Text = ComboBoxPathOfBrowserIfNotDefault.Items[0].ToString();
             }
             else
-            {
-                TextBoxlabelPathOfBrowserIfNotDefault.Text = string.Empty;
-                TextBoxlabelPathOfBrowserIfNotDefault.Enabled = false;
+            {                
+                ComboBoxPathOfBrowserIfNotDefault.Text = String.Empty;
+                ComboBoxPathOfBrowserIfNotDefault.Enabled = false;
             }
         }
 
